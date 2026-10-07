@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.secrets/
+data/
+demo-output/
+frontend/node_modules/
+frontend/dist/
+*.pyc
+*.egg-info/
+*.tsbuildinfo
+.env
+*.pdf
+*.docx
+포스터.png
+claude-*.json
+submission/*.zip

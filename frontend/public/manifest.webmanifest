@@ -1,0 +1,13 @@
+{
+  "name": "온전 QR 검증",
+  "short_name": "온전 QR",
+  "description": "공공 안내문 QR을 접속 전에 검증합니다.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f6f1",
+  "theme_color": "#143c37",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
