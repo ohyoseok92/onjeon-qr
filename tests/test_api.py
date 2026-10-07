@@ -244,8 +244,12 @@ def test_production_mode_disables_api_docs(tmp_path, monkeypatch):
     assert client.get("/health").headers["Strict-Transport-Security"].startswith("max-age=")
 
 
-def test_built_frontend_is_served(setup):
-    client, _, _ = setup
+def test_configured_frontend_is_served(tmp_path, monkeypatch):
+    frontend_dist = tmp_path / "dist"
+    frontend_dist.mkdir()
+    (frontend_dist / "index.html").write_text("<title>온전 QR</title>", encoding="utf-8")
+    monkeypatch.setenv("ONJEON_FRONTEND_DIST", str(frontend_dist))
+    client = TestClient(create_app(Settings(tmp_path / "db.sqlite3", tmp_path / "keys", "a" * 40)))
     response = client.get("/")
     assert response.status_code == 200
     assert "온전 QR" in response.text
