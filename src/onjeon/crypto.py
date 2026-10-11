@@ -51,7 +51,7 @@ def parse_qr(value: str) -> tuple[dict, bytes, bytes]:
     if not isinstance(payload, dict) or raw != canonical_bytes(payload):
         raise ValueError("noncanonical payload")
     expected = {"destination", "expires_at", "institution_id", "issued_at", "key_version", "purpose", "qr_id", "version"}
-    if set(payload) != expected or payload["version"] != 1:
+    if set(payload) != expected or type(payload["version"]) is not int or payload["version"] != 1:
         raise ValueError("invalid payload fields")
     if any(type(payload[field]) is not str for field in ("destination", "institution_id", "key_version", "purpose", "qr_id")):
         raise ValueError("invalid payload field type")
@@ -61,19 +61,31 @@ def parse_qr(value: str) -> tuple[dict, bytes, bytes]:
 
 
 def load_private_key(path: Path) -> Ed25519PrivateKey:
-    key = serialization.load_pem_private_key(path.read_bytes(), password=None)
+    password = _key_password()
+    try:
+        key = serialization.load_pem_private_key(path.read_bytes(), password=password)
+    except TypeError as exc:
+        raise ValueError("Signing key encryption does not match its configuration") from exc
     if not isinstance(key, Ed25519PrivateKey):
         raise ValueError("signing key must be Ed25519")
     return key
 
 
+def _key_password() -> bytes | None:
+    password = os.getenv("ONJEON_KEY_PASSWORD", "")
+    if password and len(password) < 32:
+        raise ValueError("ONJEON_KEY_PASSWORD must contain at least 32 characters")
+    return password.encode("utf-8") if password else None
+
+
 def create_private_key(path: Path) -> str:
+    password = _key_password()
     path.parent.mkdir(parents=True, exist_ok=True)
     private_key = Ed25519PrivateKey.generate()
     pem = private_key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.PKCS8,
-        encryption_algorithm=serialization.NoEncryption(),
+        encryption_algorithm=(serialization.BestAvailableEncryption(password) if password else serialization.NoEncryption()),
     )
     flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL
     with os.fdopen(os.open(path, flags, 0o600), "wb") as stream:

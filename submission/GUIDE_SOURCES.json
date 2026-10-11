@@ -1,0 +1,70 @@
+{
+  "guides": [
+    {
+      "filename": "01_소프트웨어_개발보안_가이드_2021.pdf",
+      "version": "2021.12.29",
+      "publisher": "한국인터넷진흥원(KISA), 공동발간 기관은 각 PDF 표지 참조",
+      "source_page": "https://www.kisa.or.kr/2060204/form?postSeq=5&lang_type=KO",
+      "download_url": "https://www.kisa.or.kr/post/fileDownload?menuSeq=2060204&postSeq=5&attachSeq=2&lang_type=KO",
+      "download_date_kst": "2026-10-11",
+      "tls_verification": "PowerShell Invoke-WebRequest, Windows system certificate verification enabled",
+      "sha256": "5098c1abc6574e35f6ac08a2587e0d731b21296cb9bae349221a2f8024cb32b8",
+      "bytes": 3480662,
+      "pdf_pages": 381,
+      "text_file": "01_소프트웨어_개발보안_가이드_2021.txt"
+    },
+    {
+      "filename": "02_소프트웨어_보안약점_진단가이드_2021.pdf",
+      "version": "2021",
+      "publisher": "한국인터넷진흥원(KISA), 공동발간 기관은 각 PDF 표지 참조",
+      "source_page": "https://www.kisa.or.kr/2060204/form?postSeq=9&lang_type=KO",
+      "download_url": "https://www.kisa.or.kr/post/fileDownload?menuSeq=2060204&postSeq=9&attachSeq=1&lang_type=KO",
+      "download_date_kst": "2026-10-11",
+      "tls_verification": "PowerShell Invoke-WebRequest, Windows system certificate verification enabled",
+      "sha256": "75336080bd167cfd2655c5587c2c7e07c9916a70ddd4063d22178591c60ba888",
+      "bytes": 32303234,
+      "pdf_pages": 612,
+      "text_file": "02_소프트웨어_보안약점_진단가이드_2021.txt"
+    },
+    {
+      "filename": "03_Python_시큐어코딩_가이드_2023_개정.pdf",
+      "version": "2023년 개정본",
+      "publisher": "한국인터넷진흥원(KISA), 공동발간 기관은 각 PDF 표지 참조",
+      "source_page": "https://www.kisa.or.kr/2060204/form?postSeq=13&lang_type=KO",
+      "download_url": "https://www.kisa.or.kr/post/fileDownload?menuSeq=2060204&postSeq=13&attachSeq=1&lang_type=KO",
+      "download_date_kst": "2026-10-11",
+      "tls_verification": "PowerShell Invoke-WebRequest, Windows system certificate verification enabled",
+      "sha256": "f09a05a1286d482d6bbd704ba622310f71fb5f9846eb664b6b2c3f0431972fa8",
+      "bytes": 4022845,
+      "pdf_pages": 177,
+      "text_file": "03_Python_시큐어코딩_가이드_2023_개정.txt"
+    },
+    {
+      "filename": "04_SW_공급망_보안_가이드라인_2024_최종수정본.pdf",
+      "version": "2024.05.25 최종 수정본",
+      "publisher": "한국인터넷진흥원(KISA), 공동발간 기관은 각 PDF 표지 참조",
+      "source_page": "https://www.kisa.or.kr/2060204/form?postSeq=15&lang_type=KO",
+      "download_url": "https://www.kisa.or.kr/post/fileDownload?menuSeq=2060204&postSeq=15&attachSeq=3&lang_type=KO",
+      "download_date_kst": "2026-10-11",
+      "tls_verification": "PowerShell Invoke-WebRequest, Windows system certificate verification enabled",
+      "sha256": "feade6b6a101bb092a456f1ecaecd2d83d504c823edd9d4bcc6bfb884ac226d1",
+      "bytes": 10628951,
+      "pdf_pages": 100,
+      "text_file": "04_SW_공급망_보안_가이드라인_2024_최종수정본.txt"
+    },
+    {
+      "filename": "05_SW_공급망_보안_강화_로드맵_2026.pdf",
+      "version": "2026.06",
+      "publisher": "한국인터넷진흥원(KISA), 공동발간 기관은 각 PDF 표지 참조",
+      "source_page": "https://www.kisa.or.kr/2060204/form?postSeq=24&lang_type=KO",
+      "download_url": "https://www.kisa.or.kr/post/fileDownload?menuSeq=2060204&postSeq=24&attachSeq=1&lang_type=KO",
+      "download_date_kst": "2026-10-11",
+      "tls_verification": "PowerShell Invoke-WebRequest, Windows system certificate verification enabled",
+      "sha256": "2aa760f51c46980ceda41737012513de0d9f5a68f3e7b0f05953e8446941bbb4",
+      "bytes": 3714314,
+      "pdf_pages": 37,
+      "text_file": "05_SW_공급망_보안_강화_로드맵_2026.txt"
+    }
+  ],
+  "note": "교육자료 참고가이드 5종. SHA256은 내려받은 로컬 원본의 식별값이며 발행기관 전자서명 인증을 뜻하지 않음."
+}

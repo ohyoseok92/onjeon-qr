@@ -1,0 +1,445 @@
+{
+  "generated_at": "2026-10-11T09:39:33.305688Z",
+  "python": {
+    "component_count": 20,
+    "lock_count": 20,
+    "installed_version_mismatches": [],
+    "dependency_environment": {
+      "implementation_name": "cpython",
+      "implementation_version": "3.12.10",
+      "os_name": "nt",
+      "platform_machine": "AMD64",
+      "platform_release": "11",
+      "platform_system": "Windows",
+      "platform_version": "10.0.26300",
+      "python_full_version": "3.12.10",
+      "platform_python_implementation": "CPython",
+      "python_version": "3.12",
+      "sys_platform": "win32"
+    },
+    "declared_extras": [
+      "qrcode[pil]"
+    ],
+    "inactive_locked_packages": [],
+    "inactive_semantics": "Locked packages not reached from production roots after current-platform marker/extra evaluation; excluded from this platform's active SBOM, not missing active dependencies.",
+    "dangling_refs": [],
+    "missing_dependency_nodes": [],
+    "unreachable_components": [],
+    "duplicate_refs": [],
+    "edge_count": 27
+  },
+  "frontend": {
+    "component_count": 8,
+    "production_lock_count": 8,
+    "installed_runtime_count": 8,
+    "installed_version_mismatches": [],
+    "missing_required_installed_packages": [],
+    "missing_optional_platform_packages": [],
+    "npm_raw_omit_dev_missing_components": [
+      "react-dom@19.3.0",
+      "react@19.3.0",
+      "scheduler@0.28.0"
+    ],
+    "generation_method": "npm full installed SBOM filtered by production lock+installed package versions; dependencies reconstructed from installed dependencies/optionalDependencies/peerDependencies with Node ancestor resolution. Original npm --omit dev output retained as evidence.",
+    "missing_sbom_components": [],
+    "dangling_refs": [],
+    "missing_dependency_nodes": [],
+    "unreachable_components": [],
+    "duplicate_refs": [],
+    "edge_count": 11
+  },
+  "license_component_count": 28,
+  "license_file_count": 30,
+  "missing_license_texts": [],
+  "license_files": [
+    {
+      "ecosystem": "python",
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/annotated-doc-0.0.5/annotated_doc-0.0.5.dist-info/licenses/LICENSE",
+          "sha256": "fff170779a6acbf65abdb405c087f1cee1786691e4a96a4034517e4a504a0cdf",
+          "bytes": 1086
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/annotated-types-0.8.0/annotated_types-0.8.0.dist-info/licenses/LICENSE",
+          "sha256": "fe1049884b1a0d9342901e88e07f32925d24b3121d9972b6a6805fb9824b095d",
+          "bytes": 1083
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "anyio",
+      "version": "4.15.1",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/anyio-4.15.1/anyio-4.15.1.dist-info/licenses/LICENSE",
+          "sha256": "5361ac9dc58f2ef5fd2e9b09c68297c17f04950909bbc8023bdb82eacf22c2b0",
+          "bytes": 1081
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "cffi",
+      "version": "2.1.1",
+      "declared_license": "MIT-0",
+      "files": [
+        {
+          "path": "licenses/python/cffi-2.1.1/cffi-2.1.1.dist-info/licenses/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63",
+          "bytes": 1123
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "click",
+      "version": "8.5.0",
+      "declared_license": "BSD-3-Clause",
+      "files": [
+        {
+          "path": "licenses/python/click-8.5.0/click-8.5.0.dist-info/licenses/LICENSE.txt",
+          "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+          "bytes": 1475
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "colorama",
+      "version": "0.4.6",
+      "declared_license": "License :: OSI Approved :: BSD License",
+      "files": [
+        {
+          "path": "licenses/python/colorama-0.4.6/colorama-0.4.6.dist-info/licenses/LICENSE.txt",
+          "sha256": "cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318",
+          "bytes": 1491
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "cryptography",
+      "version": "50.0.2",
+      "declared_license": "Apache-2.0 OR BSD-3-Clause",
+      "files": [
+        {
+          "path": "licenses/python/cryptography-50.0.2/cryptography-50.0.2.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb",
+          "bytes": 197
+        },
+        {
+          "path": "licenses/python/cryptography-50.0.2/cryptography-50.0.2.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+          "bytes": 11360
+        },
+        {
+          "path": "licenses/python/cryptography-50.0.2/cryptography-50.0.2.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb",
+          "bytes": 1532
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "fastapi",
+      "version": "0.142.2",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/fastapi-0.142.2/fastapi-0.142.2.dist-info/licenses/LICENSE",
+          "sha256": "4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e",
+          "bytes": 1086
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "h11",
+      "version": "0.16.0",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/h11-0.16.0/h11-0.16.0.dist-info/licenses/LICENSE.txt",
+          "sha256": "37db5bb85926db28a427a25867f10b1232003aea1be69ccb851138adb8e6f361",
+          "bytes": 1124
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "idna",
+      "version": "3.20",
+      "declared_license": "BSD-3-Clause",
+      "files": [
+        {
+          "path": "licenses/python/idna-3.20/idna-3.20.dist-info/licenses/LICENSE.md",
+          "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04",
+          "bytes": 1541
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "opentelemetry-api",
+      "version": "1.45.1",
+      "declared_license": "Apache-2.0",
+      "files": [
+        {
+          "path": "licenses/python/opentelemetry-api-1.45.1/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "pillow",
+      "version": "12.3.0",
+      "declared_license": "MIT-CMU",
+      "files": [
+        {
+          "path": "licenses/python/pillow-12.3.0/pillow-12.3.0.dist-info/licenses/LICENSE",
+          "sha256": "4f7866a74802c6326f81faff59a56546b6aec2b10b91973e0e9308de95e79857",
+          "bytes": 78016
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "pycparser",
+      "version": "3.0",
+      "declared_license": "BSD-3-Clause",
+      "files": [
+        {
+          "path": "licenses/python/pycparser-3.0/pycparser-3.0.dist-info/licenses/LICENSE",
+          "sha256": "0c846399369ea76ddd7b5c44fe6d16497415fcf015f5cbb508c24bf98b81c5b1",
+          "bytes": 1543
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "pydantic",
+      "version": "2.13.5",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/pydantic-2.13.5/pydantic-2.13.5.dist-info/licenses/LICENSE",
+          "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3",
+          "bytes": 1129
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "pydantic-core",
+      "version": "2.46.5",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/pydantic-core-2.46.5/pydantic_core-2.46.5.dist-info/licenses/LICENSE",
+          "sha256": "fbe7f615f18d135c07000e5a86325db27f42c7729699ef166ac1f7a3f4586bf4",
+          "bytes": 1101
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "qrcode",
+      "version": "8.2",
+      "declared_license": "BSD",
+      "files": [
+        {
+          "path": "licenses/python/qrcode-8.2/qrcode-8.2.dist-info/LICENSE",
+          "sha256": "40dfb903c94ee3f789500131311186548ecba5cefd3557623d7700e2522ab994",
+          "bytes": 2143
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "starlette",
+      "version": "1.7.0",
+      "declared_license": "BSD-3-Clause",
+      "files": [
+        {
+          "path": "licenses/python/starlette-1.7.0/starlette-1.7.0.dist-info/licenses/LICENSE.md",
+          "sha256": "dcb95677a02240243187e964f941847d19b17821cf99e5afae684fab328c19bf",
+          "bytes": 1518
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "declared_license": "PSF-2.0",
+      "files": [
+        {
+          "path": "licenses/python/typing-extensions-4.16.0/typing_extensions-4.16.0.dist-info/licenses/LICENSE",
+          "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+          "bytes": 13936
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/python/typing-inspection-0.4.4/typing_inspection-0.4.4.dist-info/licenses/LICENSE",
+          "sha256": "804b59b25f2c31bd278f9202a19ae49a3945aa2664387e2d0a128c7cacc61ec3",
+          "bytes": 1090
+        }
+      ]
+    },
+    {
+      "ecosystem": "python",
+      "name": "uvicorn",
+      "version": "0.54.0",
+      "declared_license": "BSD-3-Clause",
+      "files": [
+        {
+          "path": "licenses/python/uvicorn-0.54.0/uvicorn-0.54.0.dist-info/licenses/LICENSE.md",
+          "sha256": "efe1acf3e62fb99c288b0ec73e5a773b7268ef4320fe757ea994214e4b63c371",
+          "bytes": 1526
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@zxing/browser",
+      "version": "0.1.5",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/npm/zxing__browser-0.1.5/LICENSE",
+          "sha256": "4c26c3077daa7ce4d56ad91f279fafc395bf33c3a0f1ba9ab8cf511bad148ea5",
+          "bytes": 1069
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@zxing/library",
+      "version": "0.21.3",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/npm/zxing__library-0.21.3/LICENSE",
+          "sha256": "849b3ff4527ff587eecc78736b5685bbba7a44b071f3b944da914e832292f6c0",
+          "bytes": 13321
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@zxing/text-encoding",
+      "version": "0.9.0",
+      "declared_license": "(Unlicense OR Apache-2.0)",
+      "files": [
+        {
+          "path": "licenses/npm/zxing__text-encoding-0.9.0/LICENSE.md",
+          "sha256": "d1c15dc8470e037b82da06a95b1a91558414a83625549c47dc3997a9985efa17",
+          "bytes": 12897
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "jsqr",
+      "version": "1.4.0",
+      "declared_license": "Apache-2.0",
+      "files": [
+        {
+          "path": "licenses/npm/jsqr-1.4.0/LICENSE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react",
+      "version": "19.3.0",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/npm/react-19.3.0/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "bytes": 1088
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-dom",
+      "version": "19.3.0",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/npm/react-dom-19.3.0/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "bytes": 1088
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "scheduler",
+      "version": "0.28.0",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/npm/scheduler-0.28.0/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "bytes": 1088
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "ts-custom-error",
+      "version": "3.3.1",
+      "declared_license": "MIT",
+      "files": [
+        {
+          "path": "licenses/npm/ts-custom-error-3.3.1/LICENSE",
+          "sha256": "659b010fe62ce794cf25e1e36c2d739db17ea10a159f9a46ba2293e1f26d31c7",
+          "bytes": 1106
+        }
+      ]
+    }
+  ],
+  "hash_semantics": "Python lock SHA-256 values are approved wheel/sdist candidate hashes, not a claim about the installed archive. No RECORD aggregate hash is used. Copied license SHA-256 checks text fidelity. npm integrity refers to its locked distribution archive.",
+  "supplier_semantics": "Only explicit Supplier/supplier declarations count; unknown is stated. Authors and repository hosts are not inferred suppliers.",
+  "scope": "Production Python runtime and installed npm production runtime; development/build packages and native binary subcomponents are not expanded into separate components.",
+  "passed": true,
+  "schema_validation": {
+    "checked_at": "2026-10-11T09:39:40.120827+00:00",
+    "validator": "jsonschema Draft7Validator",
+    "validator_version": "4.25.1",
+    "official_specification": "CycloneDX specification git tag 1.5",
+    "results": {
+      "SBOM.python.cdx.json": [],
+      "SBOM.frontend.cdx.json": []
+    },
+    "passed": true
+  }
+}

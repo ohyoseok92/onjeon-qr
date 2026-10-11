@@ -1,0 +1,57 @@
+name: onjeon-security-local
+
+services:
+  app:
+    image: onjeon-security-local:verified
+    build: .
+    command: ["python", "scripts/run_tls_server.py"]
+    ports:
+      - "127.0.0.1:8443:8443"
+    environment:
+      ONJEON_ENV: production
+      ONJEON_ENV_FILE: /run/app-secrets/production.env
+      ONJEON_TLS_CRL_BUNDLE: /run/tls/revocations.pem
+      SSL_CERT_FILE: /run/tls/ca.crt
+    volumes:
+      - type: bind
+        source: ./.secrets/operation-profile/application/production.env
+        target: /run/app-secrets/production.env
+        read_only: true
+      - type: bind
+        source: ./.secrets/operation-profile/tls-local/server.key
+        target: /run/tls/server.key
+        read_only: true
+      - type: bind
+        source: ./.secrets/operation-profile/tls-local/server.crt
+        target: /run/tls/server.crt
+        read_only: true
+      - type: bind
+        source: ./.secrets/operation-profile/tls-local/ca.crt
+        target: /run/tls/ca.crt
+        read_only: true
+      - type: bind
+        source: ./.secrets/operation-profile/tls-local/revocations.pem
+        target: /run/tls/revocations.pem
+        read_only: true
+      - security-data:/app/data
+      - security-keys:/app/.secrets
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,ssl; urllib.request.urlopen('https://localhost:8443/health', context=ssl.create_default_context(cafile='/run/tls/ca.crt'), timeout=2).read()"]
+      interval: 10s
+      timeout: 3s
+      start_period: 10s
+
+volumes:
+  security-data:
+  security-keys:

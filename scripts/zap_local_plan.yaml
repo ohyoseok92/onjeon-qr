@@ -1,0 +1,65 @@
+env:
+  contexts:
+    - name: local-product
+      urls:
+        - http://127.0.0.1:8001
+      includePaths:
+        - 'http://127\.0\.0\.1:8001/.*'
+      excludePaths:
+        - 'http://127\.0\.0\.1:8001/analyze.*'
+  vars:
+    REPORT_DIR: REPLACE_WITH_ABSOLUTE_LOCAL_REPORT_DIRECTORY
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+jobs:
+  - type: passiveScan-config
+    parameters:
+      scanOnlyInScope: true
+  - type: requestor
+    requests:
+      - url: http://127.0.0.1:8001/
+        responseCode: 200
+      - url: http://127.0.0.1:8001/health
+        responseCode: 200
+      - url: http://127.0.0.1:8001/verify
+        method: POST
+        headers:
+          - 'Content-Type: application/json'
+        data: '{"qr_text":"invalid-synthetic-qr"}'
+        responseCode: 200
+      - url: http://127.0.0.1:8001/verify
+        method: POST
+        headers:
+          - 'Content-Type: application/json'
+        data: '{}'
+        responseCode: 422
+      - url: http://127.0.0.1:8001/admin/security-events
+        responseCode: 401
+      - url: http://127.0.0.1:8001/institutions/qa-city/dashboard
+        responseCode: 401
+  - type: spider
+    parameters:
+      context: local-product
+      maxDuration: 1
+      maxDepth: 3
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 1
+  - type: activeScan
+    parameters:
+      context: local-product
+      maxRuleDurationInMins: 1
+      maxScanDurationInMins: 2
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 1
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: '${REPORT_DIR}'
+      reportFile: zap-final.json
+  - type: exitStatus
+    parameters:
+      errorLevel: Medium

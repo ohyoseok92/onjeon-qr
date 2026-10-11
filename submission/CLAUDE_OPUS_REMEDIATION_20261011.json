@@ -1,0 +1,90 @@
+{
+  "recorded_at_utc": "2026-10-11T12:11:36.727428+00:00",
+  "original_findings": {
+    "M1": "resolved",
+    "L1": "resolved",
+    "L2": "resolved",
+    "L3": "resolved",
+    "L4": "resolved"
+  },
+  "followup_findings": {
+    "N1": "resolved",
+    "N2": "documented_token_model_tradeoff_with_bounded_concurrency",
+    "N3": "resolved",
+    "R1": "implemented_after_last_independent_review_with_regression"
+  },
+  "claude_runs": [
+    {
+      "name": "claude-opus-security-20261011T115124Z",
+      "actual_models": [
+        "claude-opus-5-5"
+      ],
+      "requested_effort": "high",
+      "elapsed_seconds": 280.44,
+      "snapshot_unchanged": true,
+      "review_source_archive_sha256": "342d9f09194dc4274e22a972cec4ad9adc7b52e13616371a3e43073a363407e3",
+      "raw_review_sha256": "96ce02f71a37f9478e5ab9bdb869a01b566fe7ca8630d10bce47055e9e0c9016",
+      "read_paths": [
+        "scripts/check_encrypted_docker_backup.py",
+        "scripts/secure_profile.py",
+        "src/onjeon/analyzer.py",
+        "src/onjeon/api.py",
+        "src/onjeon/storage.py",
+        "tests/test_analyzer.py",
+        "tests/test_api.py",
+        "tests/test_opus_remediation.py",
+        "tests/test_storage.py"
+      ]
+    },
+    {
+      "name": "claude-opus-security-20261011T120224Z",
+      "actual_models": [
+        "claude-opus-5-5"
+      ],
+      "requested_effort": "high",
+      "elapsed_seconds": 206.94,
+      "snapshot_unchanged": true,
+      "review_source_archive_sha256": "34b664d5ab7292f9ab9d9acfda5924d7e5efa832ba947c9f32879d4b56421c86",
+      "raw_review_sha256": "490a5a349342c66b7afe85e8749dcd0217be4ca31fb0db7a8584035ddcdc4f81",
+      "read_paths": [
+        "scripts/secure_profile.py",
+        "src/onjeon/analyzer.py",
+        "src/onjeon/api.py",
+        "src/onjeon/storage.py",
+        "tests/test_opus_auth_admission.py",
+        "tests/test_opus_health_cache.py",
+        "tests/test_opus_remediation.py"
+      ]
+    }
+  ],
+  "last_review_product_source_unchanged": {
+    "src/onjeon/api.py": true,
+    "src/onjeon/storage.py": true,
+    "src/onjeon/analyzer.py": true
+  },
+  "post_last_review_changes": [
+    "scripts/secure_profile.py first-chain explicit approval and reanchor ordering",
+    "scripts/check_encrypted_docker_backup.py synthetic baseline approval",
+    "regression fixtures, R1 test and fixed-clock existing quota test"
+  ],
+  "production_image_id": "sha256:1b5c6bed0b940e956d1debb854a9e2d14ec5e848a3475de9da4ee1ad709ef910",
+  "operating_conditions_remaining": [
+    "S05",
+    "S11",
+    "S15"
+  ],
+  "evidence_files": [
+    "TEST_REPORT.md",
+    "DOCKER_RUNTIME_CHECK.json",
+    "DOCKER_BACKUP_CHECK.json",
+    "DOCKER_IMAGE_SCAN.json"
+  ],
+  "final_linux_pytest": {
+    "passed": 176,
+    "skipped": 1,
+    "warnings": 1,
+    "elapsed_seconds": 25.43,
+    "log_sha256": "e4b499cd76ca0afd5bd6fa65534f5e3dd1231c50c32d70d21674d98b6db0145d",
+    "skip_reason": "npm production dependencies absent in Linux test container"
+  }
+}

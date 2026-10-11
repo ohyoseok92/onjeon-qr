@@ -1,0 +1,10 @@
+{
+  "checked_at_utc": "2026-10-11T13:08:52.062837+00:00",
+  "hostname": "qr.ohs92.com",
+  "admin_unauthorized_rejected": true,
+  "public_issue_verify_revoke": true,
+  "qr_revocation_reason": "revoked",
+  "actual_public_analysis_status": "warning",
+  "actual_public_analysis_reason": "unsigned_qr",
+  "synthetic_institution_disabled": true
+}

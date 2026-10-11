@@ -1,0 +1,8 @@
+[Unit]
+Description=Record actionable Onjeon operation failure
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/logger -p daemon.err -t onjeon-operations ONJEON_OPERATION_FAILED_CHECK_JOURNAL
+UMask=0077
+

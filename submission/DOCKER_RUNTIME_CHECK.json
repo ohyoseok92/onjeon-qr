@@ -1,0 +1,57 @@
+{
+  "engine_version": "29.8.0",
+  "image_id": "sha256:1b5c6bed0b940e956d1debb854a9e2d14ec5e848a3475de9da4ee1ad709ef910",
+  "test_ca_not_installed_in_os": true,
+  "container_user": "10001:10001",
+  "read_only_root": true,
+  "capabilities_dropped": "ALL",
+  "no_new_privileges": true,
+  "loopback_port": 8443,
+  "memory_limit_mib": 512,
+  "pids_limit": 128,
+  "read_only_secret_bind_count": 5,
+  "secrets_absent_from_inspect_environment": true,
+  "untrusted_ca_rejected": true,
+  "wrong_hostname_rejected": true,
+  "negotiated_tls": "TLSv1.3",
+  "https_issue_verify_revoke": true,
+  "restart_preserves_revocation_and_rate_limit": true,
+  "runtime": {
+    "uid": 10001,
+    "gid": 10001,
+    "files": {
+      "/app/data": {
+        "mode": "0o700",
+        "uid": 10001
+      },
+      "/app/.secrets": {
+        "mode": "0o700",
+        "uid": 10001
+      },
+      "/app/data/onjeon.sqlite3": {
+        "mode": "0o600",
+        "uid": 10001
+      },
+      "/app/data/.rate-limit-hmac": {
+        "mode": "0o600",
+        "uid": 10001
+      }
+    },
+    "proc_controls": [
+      "CapEff:\t0000000000000000",
+      "NoNewPrivs:\t1"
+    ],
+    "root_write_denied": true,
+    "secret_mount_write_denied": true,
+    "issuer_keys_encrypted": true
+  },
+  "runtime_versions": {
+    "pip_absent": true,
+    "ensurepip_absent": true,
+    "python": "3.12.15",
+    "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+    "sqlite": "3.53.4"
+  },
+  "image_source_matches_workspace": true,
+  "verified_at_utc": "2026-10-11T12:03:06.533861+00:00"
+}
