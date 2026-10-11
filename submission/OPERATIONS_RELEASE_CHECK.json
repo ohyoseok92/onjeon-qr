@@ -1,0 +1,62 @@
+{
+  "recorded_at_utc": "2026-10-11T13:49:31.315092+00:00",
+  "source_commit": "7976a3dcfea9537a2ea7344f74227c8017f6900a",
+  "release_tag": "security-operations-20261011",
+  "artifact_name": "OE-1_onjeon_source.zip",
+  "artifact_sha256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+  "artifact_bytes": 1264884,
+  "manifest_file_count": 181,
+  "local_gate": {
+    "verified": true,
+    "artifact_sha256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+    "public_key_fingerprint_sha256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
+    "manifest_files": 181,
+    "matches_current_source": true,
+    "trust_input": "explicit_external_fingerprint_and_release_digest",
+    "publisher_identity_verified": false
+  },
+  "expected_digest_basis": "independent system-CA HTTPS approval record and registered GitHub expectations",
+  "external_release_record_approved": true,
+  "github_release_uploaded": true,
+  "release_ci_verified": false,
+  "external_approval_url": "https://qr.ohs92.com/.well-known/onjeon-release.json",
+  "external_approval_payload": {
+    "publisher_account": "ohyoseok92",
+    "repository": "https://github.com/ohyoseok92/onjeon-qr",
+    "release_tag": "security-operations-20261011",
+    "artifact_filename": "OE-1_onjeon_source.zip",
+    "artifact_sha256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+    "public_key_fingerprint_sha256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
+    "source_commit": "7976a3dcfea9537a2ea7344f74227c8017f6900a",
+    "approved_at_utc": "2026-10-11T13:51:10.764019+00:00",
+    "release_pending": false,
+    "scope": "Product demonstration; account MFA and PC disk encryption remain pending."
+  },
+  "external_approval_system_ca_https_verified": true,
+  "github_release_target_verified": true,
+  "release_url": "https://github.com/ohyoseok92/onjeon-qr/releases/tag/security-operations-20261011",
+  "artifact_download_url": "https://github.com/ohyoseok92/onjeon-qr/releases/download/security-operations-20261011/OE-1_onjeon_source.zip",
+  "signature_download_url": "https://github.com/ohyoseok92/onjeon-qr/releases/download/security-operations-20261011/RELEASE_SIGNATURE.json",
+  "github_asset_digests": {
+    "OE-1_onjeon_source.zip": "sha256:f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+    "RELEASE_SIGNATURE.json": "sha256:ed3f01fe41c015d16dd1d384e701812f1f89037da3da04fe61905b7c261bfa01"
+  },
+  "downloaded_release_gate": {
+    "verified": true,
+    "artifact_sha256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+    "public_key_fingerprint_sha256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
+    "manifest_files": 181,
+    "matches_current_source": true,
+    "trust_input": "explicit_external_fingerprint_and_release_digest",
+    "publisher_identity_verified": false
+  },
+  "registered_expectations": {
+    "ONJEON_RELEASE_PUBLIC_KEY_SHA256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
+    "ONJEON_RELEASE_TAG": "security-operations-20261011",
+    "ONJEON_RELEASE_ZIP_SHA256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63"
+  },
+  "gitleaks_final_findings": 0,
+  "gitleaks_archive_depth": 1,
+  "temporary_ssh_rule_removed": true,
+  "temporary_ssh_rule_removal_basis": "root confirmed exact temporary rule removal and applied state in NCP UI; original rules preserved"
+}

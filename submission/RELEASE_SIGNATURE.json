@@ -3,10 +3,10 @@
   "payload": {
     "format": "onjeon-release-v1",
     "artifact_name": "OE-1_onjeon_source.zip",
-    "sha256": "2dba7a402ff11b0e16017090823a68230331c5c9e74dd61d7d1f77bb8c22630b",
-    "bytes": 1190618
+    "sha256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+    "bytes": 1264884
   },
   "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAYh2ykIUTjStnRwRNWhGjH+ChILVbZ4zk+kxujw5LbdA=\n-----END PUBLIC KEY-----\n",
   "public_key_fingerprint_sha256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
-  "signature_base64": "cubY/7h8FZuv1RXNskeSlR8OuVUWORYsXTLp6uZlN5cNVwGYhTJkErXs/+uK8dyoTjUKnN0zAS4VsxWCcBhrDQ=="
+  "signature_base64": "tl2irKB3lMLKanUBV1/2sHjW8/gRiwlQAy6QXcL4dkfJuKBSaP1/rSM/0KXZB0fKRVkY5giWh2sWaSZ/QV3MDw=="
 }
