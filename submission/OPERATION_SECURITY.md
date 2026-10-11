@@ -1,16 +1,20 @@
 # 개발·운영 환경 보안 확인
 
+## 2026-10-11 공개 운영 후속 확인
+
+공개 TLS·실제 CRL 갱신/감시·MYBOX 다운로드 복구·원격 CI를 적용했다. 현재 집계는 **구현 확인37·비적용10·조건부2**이며 GitHub MFA와 PC C: 암호화가 남았다. 최신 결과는 [공개 운영 보고서](OPERATIONS_COMPLETION_20261011.md)를 따른다. 아래 로컬 점검의 미확인·집계 수치는 당시 기록이다.
+
 확인일: 2026-10-11. 실제 조회 결과와 소스에만 존재하는 설정을 구별했다. 기존 OS/계정·저장소 공개 설정은 유지하고 새로운 격리 운영 프로필의 NTFS 권한을 설정했다. 개인정보가 포함된 원본 ACL·토큰·로그는 제출물에 넣지 않는다.
 
 | 항목 | 조회 결과 | 남은 확인 |
 | --- | --- | --- |
 | 개발 PC 악성코드 방어 | Defender AMService/Antivirus/RealTimeProtection 모두 활성. 서명 갱신 시각 2026-10-11 01:04:29(로컬 시간). | 현재 상태 확인이며 악성코드가 전혀 없다는 보증은 아니다. |
 | OS 업데이트 | 2026-10-02 설치된 HotFix 기록을 조회했다. | 설치 기록만으로 최신 패치 충족 여부를 단정하지 않는다. |
-| 저장장치 암호화 | BitLocker 조회 권한 오류로 유효 상태를 확인하지 못했다. | 운영 권한으로 확인 필요. 비활성으로 판정하지 않음. |
+| 저장장치 암호화 | 이후 사용자가 승인한 관리자 WMI 조회에서 C: ConversionStatus0/EncryptionPercentage0/ProtectionStatus0/EncryptionMethod0, 반환0을 확인. | 암호화와 보호 꺼짐. PC 외부의 복구 키 보관처와 전체 디스크 적용 승인이 필요. 조회만 수행했다. |
 | 파일 접근권한 | 작업공간과 QA 데이터는 사용자/관리자/SYSTEM 외 샌드박스 계정의 상속 접근권한이 존재한다. | 새 `.secrets/operation-profile`과 비밀·백업 파일은 현재 사용자/SYSTEM만 허용함을 실증했다. 기존 개발 폴더는 운영 비밀 보관소로 간주하지 않는다. 실제 Docker DB/키/HMAC0600·디렉터리0700도 확인. |
 | 공개 포트 | 제품 QA는 loopback 127.0.0.1에 바인딩했다. | 공개 서버 TLS 종료·프록시 제한·접근 로그는 실제 배포 후 확인. |
 | Docker | 오래된 소켓 폴더 보존 후 Desktop 재시작으로 Engine29.8.0 복구. digest 고정 이미지 실제 빌드·HTTPS healthy·발급/폐기·권한·재시작 유지 확인. | DOCKER_RUNTIME_CHECK.md/json을 따른다. Docker 서비스 시작은 권한 거부됐지만 WSL 엔진은 정상 작동. Windows 소켓 장애의 근본 원인·공개 운영은 별도. |
-| GitHub 저장소 | 연결된 GitHub 도구와 CLI로 private 저장소임을 확인. collaborator 조회는 1명 반환. | 계정 MFA는 유효 값이 반환되지 않아 미확인. 브랜치 보호·ruleset 조회는 integration/현재 private 요금제 제한의 403으로 집행 상태 확인 불가. |
+| GitHub 저장소 | private 저장소, collaborator1명, hosted CI285개 성공 확인. 로그인된 계정 보안 화면에서 2단계 인증 꺼짐 확인. | 사용자 인증 앱 등록·복구 코드 보관 후 MFA 확인 필요. 브랜치 보호·ruleset은 기존 private 요금제/API 제한403으로 집행 상태 확인 불가. 독립 서명키·기대 SHA 검증을 릴리스에 적용. |
 | 도구·런타임 | Python 3.12.10, Node 24.14.1, SQLite 3.49.1. Python TLS OpenSSL 3.0.16, cryptography 내장 OpenSSL 4.0.3 확인. | 버전 번호만으로 지원 종료/보안 패치 적용을 단정하지 않음. 실제 컨테이너 pip check·소스 hash 일치는 별도 JSON 증거로 확인. |
 | 취약점 대응 | lock 갱신→취약점 감사→회귀→build→SBOM/라이선스→manifest/ZIP 재생성 절차 확보. | 실운영 지원기간·담당자·접수 경로·패치 기한·릴리스 서명 신뢰 경로 결정 필요. |
 | 복구 | 별도 임시 데이터의 암호화 키·SQLite 백업 복구 결과는 `RECOVERY_CHECK.md`. | 오래된 DB 백업으로 복구하면 이후 취소된 QR이 되살아날 수 있다. 최신 취소/키상태 반영과 재개 승인 없이 서비스 재개 금지. |

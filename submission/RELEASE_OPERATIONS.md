@@ -20,15 +20,43 @@
 
 워크플로 토큰은 `contents: read`만 허용한다. checkout은 자격증명을 Git 설정에 남기지 않으며 모든 action은 전체 commit SHA로 고정한다. npm 캐시와 setup-node의 자동 캐시도 끈다. 일반 PR 검사에는 운영 비밀·릴리스 개인키·배포 자격증명이 없다. 시간 제한과 중복 실행 취소를 설정했다. [GitHub 보안 지침](https://docs.github.com/en/actions/reference/security/secure-use)
 
-기존 backend·frontend 검사에 이어 `workflow_dispatch`를 선택하면 릴리스 검증 job을 실행한다. 고정 저장소 `ohyoseok92/onjeon-qr`의 지정 태그에서 ZIP과 분리 서명만 내려받는다. 저장소 밖에서 확인한 공개키 지문을 관리자가 `ONJEON_RELEASE_PUBLIC_KEY_SHA256` 저장소 variable에 등록해야 한다. 값이 없으면 job이 실패한다. 최신 승인 기록의 ZIP SHA256은 dispatch 입력으로 받으며 셸 코드에 직접 삽입하지 않는다.
+기존 backend·frontend 검사에 이어 `workflow_dispatch`를 선택하면 릴리스 검증 job을 실행한다. `push`에서는 `ONJEON_RELEASE_TAG` 저장소 variable이 등록되어 있을 때만 해당 job을 실행한다. 일반 PR에서는 릴리스 자산을 검증하지 않는다. 고정 저장소 `ohyoseok92/onjeon-qr`의 지정 태그에서 ZIP과 분리 서명만 내려받는다.
+
+공개키 지문은 `ONJEON_RELEASE_PUBLIC_KEY_SHA256` 저장소 variable에서 읽는다. 태그·최신 승인 ZIP SHA256은 dispatch 입력을 우선하며 입력이 없으면 `ONJEON_RELEASE_TAG`·`ONJEON_RELEASE_ZIP_SHA256` variable을 사용한다. 값이 없거나 형식이 잘못되면 검증을 거부한다. 입력은 환경변수로 전달하며 셸 코드에 직접 삽입하지 않는다. 릴리스 태그가 없는 최초 `push`에서 검증 job을 생략하는 것은 정상 동작이며, 릴리스 검증 성공을 뜻하지 않는다.
 
 GitHub Actions의 공개키 variable은 비밀이 아니다. 변경 권한은 저장소 관리자에게만 주고, 키 교체 시에는 수신자에게 별도 확인을 거쳐 새 지문을 전달해야 한다. 서명 키는 CI에 넣지 않는다.
 
-## 확인 결과와 실제 운영의 완료 기준
+## 확인한 운영 결과
 
 로컬 검증 도구의 공격 시나리오 시험 **13개가 통과**했다. 외부 기대값 누락, 공격자 키의 정상 서명, 과거 릴리스, 잘못되거나 중복된 manifest, 경로 이탈, 중복 JSON 속성, 크기 제한을 확인했다.
 
-이 문서를 작성한 시점에는 변경한 워크플로를 원격에 올리거나 실행하지 않았다. 저장소 variable 등록, 원격 CI 성공, 해당 릴리스의 외부 게시를 이 문서만으로 완료했다고 판단하지 않는다. Root 작업의 실제 운영 결과를 함께 확인해야 한다.
+실제 GitHub hosted runner에서 최초 CI 실행이 성공했다. [CI 실행 기록](https://github.com/ohyoseok92/onjeon-qr/actions/runs/38142893078)은 저장소 접근 권한이 있는 계정으로 확인할 수 있다.
+
+| 항목 | 확인 결과 |
+|---|---|
+| 실행 ID | `38142893078` |
+| 소스 commit | `9794d5e06b8125c3e6847f5b1947cfb698947287` |
+| CI 결론 | `success` |
+| backend 회귀 | 285개 통과, 경고 1개, 26.06초 |
+| frontend 시험 | 15개 통과 |
+| 의존성 검사 | pip-audit·npm audit 검출 0건 |
+| 릴리스 자산 검증 | 태그 미등록으로 생략; 이 실행은 최초 소스 CI 증거 |
+
+`ONJEON_RELEASE_PUBLIC_KEY_SHA256` 저장소 variable에는 아래 지문을 등록했다. 원시 Ed25519 공개키 32바이트의 SHA256이다.
+
+```text
+b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9
+```
+
+별도 HTTPS 도메인의 [릴리스 승인 기록](https://qr.ohs92.com/.well-known/onjeon-release.json)에서도 발행 계정 `ohyoseok92`, 저장소 주소, 같은 공개키 지문을 실제로 확인했다. 이 문서의 상태를 기록한 시점에는 `release_pending: true`이며 릴리스 태그와 ZIP SHA256이 아직 없다. 따라서 공개키 게시와 저장소 variable 등록은 완료했지만, 특정 릴리스의 배포 승인이나 자산 검증 완료로 처리하지 않는다.
+
+## 최종 릴리스 검증 결과 — 완료 후 추가
+
+예정 태그는 `security-operations-20261011`이다. 최종 ZIP·분리 서명을 해당 GitHub 릴리스에 게시하고, HTTPS 승인 기록에 정확한 태그·ZIP SHA256을 등록한 뒤 릴리스 검증 job의 성공을 확인해야 한다. 이 단계의 실행 ID·검증한 ZIP SHA256·완료 시점은 실제 성공 후 별도 결과 기록에 남긴다. 현재 문서에는 최종 자산 검증 성공을 주장하지 않는다.
+
+검증 결과를 기록하느라 서명한 ZIP 안의 문서를 바꾸면 기존 서명과 해시가 맞지 않게 된다. 최종 릴리스의 해시와 검증 실행 결과는 ZIP 밖의 승인·결과 기록으로 보관한다.
+
+## 외부 신뢰의 적용 범위
 
 외부 기록에는 공개키 지문·최신 ZIP SHA256·릴리스 식별자·발행 주체·발행 시점을 넣는다. 소스 ZIP이나 분리 서명 파일과 함께 교체할 수 있는 채널 하나만 신뢰 앵커로 쓰면 안 된다. 수신자가 이미 알고 있는 발행자 계정, 별도로 관리하는 전달 경로, 또는 승인된 신뢰 저장소에 등록한 기록과 대조한다. 공개키 파일과 함께 만든 로컬 JSON은 외부 게시 증거가 아니다.
 

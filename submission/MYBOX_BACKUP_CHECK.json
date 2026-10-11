@@ -1,0 +1,63 @@
+{
+  "verified_at_utc": "2026-10-11T13:28:57.684947+00:00",
+  "data_origin": "authorized real production server snapshot and actual MYBOX downloaded archive",
+  "storage_service": "NAVER MYBOX",
+  "mybox_upload_completed": true,
+  "upload_evidence_basis": "root agent confirmed upload success and downloaded the named archive through MYBOX UI",
+  "archive_filename": "production-state-20261011T131832Z-c468943d.onbackup",
+  "archive_sha256": "096cf108c43bc82858a5debba5af7843bf02ac21f0c0c309cb0938efde4c4db5",
+  "archive_bytes": 99403,
+  "mybox_download_hash_verified": true,
+  "downloaded_bytes_match_original_ciphertext": true,
+  "downloaded_archive_authenticated_restore_verified": true,
+  "algorithm": "AES-256-GCM",
+  "backup_generation": 1,
+  "backup_id": "3af45c5273b6f064412dd0a394cf0d08c082c7b852835c4982d5ad0fa7de97a2",
+  "backup_created_at_utc": "2026-10-11T13:19:04.183474+00:00",
+  "source_database_sha256_trusted_via_ssh": "47ef050fb5f9a8a95cbbce41e51e28e326591f9e4a68f6867323978692f2d953",
+  "checkpoint_latest_generation_verified": true,
+  "rollback_explicitly_allowed": false,
+  "all_snapshot_database_rows_match_before_restored_api_start": true,
+  "all_encrypted_issuer_keys_match": true,
+  "encrypted_issuer_key_count": 1,
+  "rate_limit_hmac_matches": true,
+  "sqlite_integrity_check": "ok",
+  "authoritative_security_gate": {
+    "security_state_matches_authoritative_snapshot": true,
+    "institution_key_qr_and_credentials_state_verified": true,
+    "independent_snapshot_digest_verified": true,
+    "operator_cutover_freshness_and_admin_rotation_required": true,
+    "service_recovery_authorized": false
+  },
+  "frozen_source_institution_disabled_and_qr_revoked": true,
+  "restored_revoked_or_disabled_qr_blocked": true,
+  "actual_fixture_api_results": [
+    {
+      "http_status": 200,
+      "status": "blocked",
+      "reason": "issuer_disabled"
+    }
+  ],
+  "restored_production_api_health": "ok",
+  "restored_admin_authentication": true,
+  "source_stop_to_restart_seconds": 3.486,
+  "source_production_still_healthy": true,
+  "original_production_database_and_volumes_preserved": true,
+  "backup_key_and_passphrases_remain_in_pc_private_custody": true,
+  "raw_private_keys_passwords_tokens_or_plaintext_uploaded": false,
+  "ciphertext_only_uploaded": true,
+  "private_download_copy_permissions": {
+    "platform": "windows",
+    "allowed_identities": "current user and SYSTEM only",
+    "rule_count": 2,
+    "other_identity_count": 0,
+    "inheritance_protected": false
+  },
+  "local_plaintext_staging_and_temporary_recovery_profiles_removed": true,
+  "server_plaintext_staging_removed": true,
+  "downloaded_ciphertext_preserved": true,
+  "original_pc_key_custody_and_authenticated_checkpoints_preserved": true,
+  "production_restore_or_cutover_performed": false,
+  "security_gate_covers_frozen_snapshot_not_future_server_changes": true,
+  "future_recovery_requires_security_change_replay_and_new_admin_secret": true
+}

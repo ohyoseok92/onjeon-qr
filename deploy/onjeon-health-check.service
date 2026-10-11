@@ -7,6 +7,7 @@ OnFailure=onjeon-operation-alert.service
 
 [Service]
 Type=oneshot
+ExecStartPre=/usr/bin/python3 -c 'import shutil; u=shutil.disk_usage("/srv/onjeon-qr"); raise SystemExit(0 if u.free >= max(1073741824,u.total/10) else 1)'
 ExecStartPre=/bin/sh -c 'test "$$(/usr/bin/timedatectl show --property=NTPSynchronized --value)" = yes'
 ExecStart=/usr/bin/docker run --rm --read-only --tmpfs /tmp:rw,noexec,nosuid,size=16m --memory 128m --pids-limit 64 --cap-drop ALL --security-opt no-new-privileges:true --user 10001:10001 -v /srv/onjeon-qr/runtime:/ops:ro -v /srv/onjeon-qr/profile/tls:/var/onjeon-tls:ro --entrypoint python sha256:1b5c6bed0b940e956d1debb854a9e2d14ec5e848a3475de9da4ee1ad709ef910 /ops/check_operational_health.py --config /var/onjeon-tls/sources.json --bundle /var/onjeon-tls/revocations.pem --issuers /var/onjeon-tls/issuers.pem
 TimeoutStartSec=45
