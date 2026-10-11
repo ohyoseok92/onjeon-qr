@@ -18,7 +18,7 @@
   "expected_digest_basis": "independent system-CA HTTPS approval record and registered GitHub expectations",
   "external_release_record_approved": true,
   "github_release_uploaded": true,
-  "release_ci_verified": false,
+  "release_ci_verified": true,
   "external_approval_url": "https://qr.ohs92.com/.well-known/onjeon-release.json",
   "external_approval_payload": {
     "publisher_account": "ohyoseok92",
@@ -58,5 +58,43 @@
   "gitleaks_final_findings": 0,
   "gitleaks_archive_depth": 1,
   "temporary_ssh_rule_removed": true,
-  "temporary_ssh_rule_removal_basis": "root confirmed exact temporary rule removal and applied state in NCP UI; original rules preserved"
+  "temporary_ssh_rule_removal_basis": "root confirmed exact temporary rule removal and applied state in NCP UI; original rules preserved",
+  "release_ci": {
+    "run_id": 38144965972,
+    "url": "https://github.com/ohyoseok92/onjeon-qr/actions/runs/38144965972",
+    "verification_commit": "23a2f64296a135116440b8db6f46c8f65cf440c6",
+    "conclusion": "success",
+    "started_at": "2026-10-11T13:53:21Z",
+    "updated_at": "2026-10-11T13:54:40Z",
+    "jobs": {
+      "backend": {
+        "conclusion": "success",
+        "started_at": "2026-10-11T13:53:23Z",
+        "completed_at": "2026-10-11T13:54:26Z"
+      },
+      "frontend": {
+        "conclusion": "success",
+        "started_at": "2026-10-11T13:53:23Z",
+        "completed_at": "2026-10-11T13:53:45Z"
+      },
+      "release-verification": {
+        "conclusion": "success",
+        "started_at": "2026-10-11T13:54:28Z",
+        "completed_at": "2026-10-11T13:54:39Z"
+      }
+    },
+    "hosted_gate": {
+      "artifact_sha256": "f4f0a06bfe8e66de69f7aa102dbecdd239ec67f5ed7a296aafb98166ec1f1d63",
+      "manifest_files": 181,
+      "matches_current_source": false,
+      "public_key_fingerprint_sha256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
+      "publisher_identity_verified": false,
+      "trust_input": "explicit_external_fingerprint_and_release_digest",
+      "verified": true
+    },
+    "backend_test_summary": [
+      "285 passed, 1 warning in 30.31s"
+    ]
+  },
+  "post_receipt_commit_ci": "Final proof commit will be separately verified; its run URL remains outside this receipt to avoid recursive proof commits."
 }
