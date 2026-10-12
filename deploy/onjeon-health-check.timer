@@ -1,0 +1,12 @@
+[Unit]
+Description=Check Onjeon public operation every five minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=true
+Unit=onjeon-health-check.service
+
+[Install]
+WantedBy=timers.target

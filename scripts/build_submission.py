@@ -10,16 +10,39 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "submission" / "OE-1_onjeon_source.zip"
 FILES = [
     ROOT / name for name in (
-        ".gitignore", "README.md", "pyproject.toml", "requirements-dev.lock",
+        ".gitignore", ".dockerignore", "Dockerfile", "compose.yaml", "compose.security.yaml", "compose.production.yaml",
+        "README.md", "pyproject.toml", "requirements-dev.lock", "requirements-runtime.lock",
         ".github/workflows/ci.yml", "frontend/index.html", "frontend/package.json",
-        "frontend/package-lock.json", "frontend/tsconfig.json", "frontend/vite.config.ts",
+        "frontend/package-lock.json", "frontend/tsconfig.json", "frontend/vite.config.ts", "frontend/vitest.config.ts",
         "submission/README.md", "submission/SECURITY.md", "submission/TEST_REPORT.md",
         "submission/CLAUDE_REVIEW.md",
+        "submission/SECURITY_CHECKLIST_49.md", "submission/GUIDE_SECURITY_REVIEW.md",
+        "submission/GUIDE_SOURCES.json", "submission/SBOM.python.cdx.json",
+        "submission/SBOM.frontend.cdx.json", "submission/PRODUCT_EVALUATION.json",
+        "submission/PRODUCT_EVALUATION.md",
     )
 ]
 for pattern in (
-    "src/onjeon/*.py", "tests/*.py", "scripts/*.py", "frontend/src/*",
+    "src/onjeon/*.py", "tests/*.py", "scripts/*.py", "scripts/*.yaml", "frontend/src/**/*",
+    "deploy/*",
     "frontend/public/*", "frontend/dist/**/*",
+    "submission/screenshots/*.jpg",
+    "submission/screenshots/*.png", "submission/schemas/**/*",
+    "submission/FULL_GUIDE_*.md", "submission/licenses/**/*",
+    "submission/THIRD_PARTY_NOTICES.md", "submission/SUPPLY_CHAIN_VALIDATION.*",
+    "submission/OPERATION_SECURITY.md", "submission/RECOVERY_CHECK.md",
+    "submission/DAST_CHECK.md",
+    "submission/EVALUATION_READINESS.md",
+    "submission/SBOM.*.json",
+    "submission/SECURITY_CONDITIONS_*.md", "submission/SECURITY_CONDITIONS_*.json",
+    "submission/DOCKER_RUNTIME_CHECK.*", "submission/DOCKER_BACKUP_CHECK.json",
+    "submission/RELEASE_VERIFICATION.md",
+    "submission/DOCKER_IMAGE_SCAN.md", "submission/DOCKER_IMAGE_SCAN.json",
+    "submission/CLAUDE_OPUS_SECURITY_REVIEW_*.md", "submission/CLAUDE_OPUS_SECURITY_REVIEW_*.json",
+    "submission/CLAUDE_OPUS_REMEDIATION_*.md", "submission/CLAUDE_OPUS_REMEDIATION_*.json",
+    "submission/BACKUP_CUSTODY.md", "submission/CRL_OPERATIONS.md", "submission/RELEASE_OPERATIONS.md",
+    "submission/PUBLIC_*_CHECK.json", "submission/MYBOX_BACKUP_CHECK.json", "submission/OPERATIONS_COMPLETION_*.md",
+    "submission/BITLOCKER_OPERATION_PLAN.md",
 ):
     FILES.extend(ROOT.glob(pattern))
 

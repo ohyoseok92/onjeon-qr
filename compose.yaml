@@ -1,0 +1,31 @@
+name: onjeon-qr
+
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      ONJEON_ENV: production
+      ONJEON_ADMIN_TOKEN: ${ONJEON_ADMIN_TOKEN:?Set a randomly generated admin token}
+      ONJEON_KEY_PASSWORD: ${ONJEON_KEY_PASSWORD:?Set a randomly generated key passphrase}
+      ONJEON_TLS_CRL_BUNDLE: /run/tls/revocations.pem
+    volumes:
+      - app-data:/app/data
+      - app-keys:/app/.secrets
+      - type: bind
+        source: ${ONJEON_TLS_CRL_BUNDLE:?Set a maintained CRL-only PEM bundle path}
+        target: /run/tls/revocations.pem
+        read_only: true
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  app-data:
+  app-keys:

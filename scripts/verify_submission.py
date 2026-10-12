@@ -19,7 +19,7 @@ def main() -> None:
             path = Path(name)
             if name.startswith("/") or ".." in path.parts or FORBIDDEN.intersection(path.parts):
                 raise SystemExit(f"Forbidden archive path: {name}")
-            if path.suffix.lower() in {".pem", ".sqlite3", ".pdf", ".docx"}:
+            if path.suffix.lower() in {".pem", ".key", ".onbackup", ".bin", ".sqlite3", ".pdf", ".docx"}:
                 raise SystemExit(f"Forbidden archive file: {name}")
         lines = archive.read("MANIFEST.sha256").decode("utf-8").splitlines()
         checked = set()

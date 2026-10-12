@@ -1,0 +1,60 @@
+{
+  "verified_at_utc": "2026-10-11T12:10:30.361728+00:00",
+  "container_stopped_during_snapshot": true,
+  "restore_uses_fresh_private_profile": true,
+  "source_image_id": "sha256:1b5c6bed0b940e956d1debb854a9e2d14ec5e848a3475de9da4ee1ad709ef910",
+  "original_container_restarted_healthy": true,
+  "backup": {
+    "backed_up": true,
+    "algorithm": "AES-256-GCM",
+    "bytes": 108755,
+    "database_bytes": 77824,
+    "rate_limit_hmac_included": true,
+    "encrypted_issuer_key_count": 10,
+    "metadata": {
+      "identity_format": "installation-id-v1",
+      "installation_id": "cd515e7a100586774f2e848003c14d2401704c01cad8e64230836c246972544f",
+      "backup_id": "0b6b49bd9147de345b04c3d96b35159d4bc5e6d7ebeaf07cf9fd12885adade4e",
+      "source_id": "ef1e897d8cf47eb65c2eeb8908588e576355a5c59b42419db1ba17254ff727ac",
+      "generation": 1,
+      "created_at_utc": "2026-10-11T12:09:47.078970+00:00",
+      "audit_event_max_id": 30,
+      "database_sha256": "17b72140e7f0ac5143a7ffee159ab67d3f2047bac94371ccb02473b1840817a4"
+    },
+    "checkpoint_recorded": true,
+    "new_installation_explicitly_approved": true
+  },
+  "restore": {
+    "restored": true,
+    "integrity_check": "ok",
+    "bytes": 77824,
+    "rate_limit_hmac_restored": true,
+    "encrypted_issuer_key_count": 10,
+    "metadata": {
+      "audit_event_max_id": 30,
+      "backup_id": "0b6b49bd9147de345b04c3d96b35159d4bc5e6d7ebeaf07cf9fd12885adade4e",
+      "created_at_utc": "2026-10-11T12:09:47.078970+00:00",
+      "database_sha256": "17b72140e7f0ac5143a7ffee159ab67d3f2047bac94371ccb02473b1840817a4",
+      "generation": 1,
+      "identity_format": "installation-id-v1",
+      "installation_id": "cd515e7a100586774f2e848003c14d2401704c01cad8e64230836c246972544f",
+      "source_id": "ef1e897d8cf47eb65c2eeb8908588e576355a5c59b42419db1ba17254ff727ac"
+    },
+    "rollback_explicitly_allowed": false,
+    "checkpoint_reanchored_from_external_id": false,
+    "post_backup_security_changes_must_be_replayed": true
+  },
+  "all_snapshot_rows_match_before_restored_api_start": true,
+  "all_nested_encrypted_keys_match": true,
+  "hmac_key_matches": true,
+  "restored_production_api_health_and_admin": true,
+  "archive_acl": {
+    "platform": "windows",
+    "allowed_identities": "current user and SYSTEM only",
+    "rule_count": 2,
+    "other_identity_count": 0,
+    "inheritance_protected": false
+  },
+  "archive_sha256": "a6f3cfd63a1e9412c3f42b641199240b73951247082486a901a1140989b79622",
+  "plaintext_staging_removed": true
+}

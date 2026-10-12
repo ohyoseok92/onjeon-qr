@@ -1,0 +1,244 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:40435bdb-3e1d-4506-8838-e6a251a29334",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-11T09:39:36.340Z",
+    "lifecycles": [
+      {
+        "phase": "build"
+      }
+    ],
+    "tools": [
+      {
+        "vendor": "npm",
+        "name": "cli",
+        "version": "11.17.0"
+      }
+    ],
+    "component": {
+      "bom-ref": "onjeon-qr-web@0.1.0",
+      "type": "library",
+      "name": "frontend",
+      "version": "0.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/onjeon-qr-web@0.1.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:private",
+          "value": "true"
+        }
+      ],
+      "externalReferences": []
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "@zxing/browser@0.1.5",
+      "type": "library",
+      "name": "@zxing/browser",
+      "version": "0.1.5",
+      "scope": "required",
+      "description": "ZXing for JS's browser layer.",
+      "purl": "pkg:npm/%40zxing/browser@0.1.5",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@zxing/browser/-/browser-0.1.5.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/zxing-js/browser"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e0b9ab9ff8a5e3e50d6fcec693c8758969e18f7f53012107a5df750b0c1226d639bbec1ad221fda92d3034b0166cd5585d1eba5a64f9ba232167ba154eb29fc7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@zxing/library@0.21.3",
+      "type": "library",
+      "name": "@zxing/library",
+      "version": "0.21.3",
+      "scope": "required",
+      "description": "TypeScript port of ZXing multi-format 1D/2D barcode image processing library.",
+      "purl": "pkg:npm/%40zxing/library@0.21.3",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@zxing/library/-/library-0.21.3.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/zxing-js/library"
+        },
+        {
+          "type": "website",
+          "url": "https://zxing-js.github.io/library/"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8591ea15ed89c87fd9c6f889668b198d5fb6b3a103498d0edb847e1509a55990595cff48a8ca3b4b79dbdfed8b056c687494244aeadd4069ea13b297aab620a3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@zxing/text-encoding@0.9.0",
+      "type": "library",
+      "name": "@zxing/text-encoding",
+      "version": "0.9.0",
+      "scope": "optional",
+      "author": "Joshua Bell <inexorabletash@gmail.com>",
+      "description": "Polyfill for the Encoding Living Standard's API.",
+      "purl": "pkg:npm/%40zxing/text-encoding@0.9.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@zxing/text-encoding/-/text-encoding-0.9.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/zxing-js/text-encoding.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/inexorabletash/text-encoding"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/inexorabletash/text-encoding/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "53fe1a549da6c48d1a0cd23c52ad3012132063ebb808db446f4a26dfecb7fa788302ca1308e077dd4174b31a73ab376a5cbaa6bdcfaf67202de0ef293dd7e4c0"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "(Unlicense OR Apache-2.0)"
+        }
+      ]
+    },
+    {
+      "bom-ref": "jsqr@1.4.0",
+      "type": "library",
+      "name": "jsqr",
+      "version": "1.4.0",
+      "scope": "required",
+      "description": "A pure javascript QR code reading library that takes in raw images and will locate, extract and parse any QR code found within.",
+      "purl": "pkg:npm/jsqr@1.4.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/jsqr/-/jsqr-1.4.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7712e86fbabae578360efb2d624469918b662a6dac3c9f68161ae19ae753d5d66f34515396ba1a8b70164a92decbfc39bcc70b057460389b1b5e974df47cd4fc"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "ts-custom-error@3.3.1",
+      "type": "library",
+      "name": "ts-custom-error",
+      "version": "3.3.1",
+      "scope": "required",
+      "author": "Adrien Gibrat <adrien.gibrat@gmail.com>",
+      "description": "Extend native Error to create custom errors",
+      "purl": "pkg:npm/ts-custom-error@3.3.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/ts-custom-error/-/ts-custom-error-3.3.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e4e5f5b733a3c56120b2bfd8114592b8fad0d3475e28b87a0fb39359cbcd1e6d76ffb40fc9187c498a725af038219bfc1fff8641640487f930a3de50f4e556d4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "onjeon-qr-web@0.1.0",
+      "dependsOn": [
+        "@zxing/browser@0.1.5",
+        "@zxing/library@0.21.3",
+        "jsqr@1.4.0"
+      ]
+    },
+    {
+      "ref": "@zxing/browser@0.1.5",
+      "dependsOn": [
+        "@zxing/library@0.21.3",
+        "@zxing/text-encoding@0.9.0"
+      ]
+    },
+    {
+      "ref": "@zxing/library@0.21.3",
+      "dependsOn": [
+        "ts-custom-error@3.3.1",
+        "@zxing/text-encoding@0.9.0"
+      ]
+    },
+    {
+      "ref": "@zxing/text-encoding@0.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "jsqr@1.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "ts-custom-error@3.3.1",
+      "dependsOn": []
+    }
+  ]
+}

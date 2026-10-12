@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh Onjeon CRLs hourly before expiry
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+Persistent=true
+RandomizedDelaySec=60
+
+[Install]
+WantedBy=timers.target
+

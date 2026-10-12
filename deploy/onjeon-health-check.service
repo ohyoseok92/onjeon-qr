@@ -1,0 +1,15 @@
+[Unit]
+Description=Check Onjeon public TLS, certificate rotation, CRL expiry and health
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+OnFailure=onjeon-operation-alert.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/python3 -c 'import shutil; u=shutil.disk_usage("/srv/onjeon-qr"); raise SystemExit(0 if u.free >= max(1073741824,u.total/10) else 1)'
+ExecStartPre=/bin/sh -c 'test "$$(/usr/bin/timedatectl show --property=NTPSynchronized --value)" = yes'
+ExecStart=/usr/bin/docker run --rm --read-only --tmpfs /tmp:rw,noexec,nosuid,size=16m --memory 128m --pids-limit 64 --cap-drop ALL --security-opt no-new-privileges:true --user 10001:10001 -v /srv/onjeon-qr/runtime:/ops:ro -v /srv/onjeon-qr/profile/tls:/var/onjeon-tls:ro --entrypoint python sha256:14852072c1ba519bbf0c3b7a7ad4a90e810c073d34747acd1310ed5db56d5291 /ops/check_operational_health.py --config /var/onjeon-tls/sources.json --bundle /var/onjeon-tls/revocations.pem --issuers /var/onjeon-tls/issuers.pem
+TimeoutStartSec=45
+UMask=0077
+

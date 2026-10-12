@@ -1,0 +1,123 @@
+{
+  "profile_acl": {
+    "platform": "windows",
+    "allowed_identities": "current user and SYSTEM only",
+    "rule_count": 2,
+    "other_identity_count": 0,
+    "inheritance_protected": true
+  },
+  "private_files": [
+    {
+      "relative_path": "application\\production.env",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "key-custody\\backup-key.bin",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "key-custody\\release-passphrase",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "key-custody\\release-private.pem",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "key-custody\\release-public.pem",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "tls-local\\ca.crt",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "tls-local\\revocations.pem",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "tls-local\\server.crt",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    },
+    {
+      "relative_path": "tls-local\\server.key",
+      "permissions": {
+        "platform": "windows",
+        "allowed_identities": "current user and SYSTEM only",
+        "rule_count": 2,
+        "other_identity_count": 0,
+        "inheritance_protected": false
+      }
+    }
+  ],
+  "secret_values_in_report": false,
+  "random_generation": {
+    "generator": "secrets.token_urlsafe",
+    "input_bytes_each": 48
+  },
+  "release_private_key_format": "encrypted PKCS8 Ed25519",
+  "release_public_key_fingerprint_sha256": "b79bab9e74200187685b03d6d00bbca294007b34dbe6f44e4aca623fce316dd9",
+  "backup_algorithm": "AES-256-GCM with random 12-byte nonce and format AAD",
+  "backup_key_custody": "separate protected directory on same local host; key excluded from encrypted backup artifact",
+  "regression_tests": 9,
+  "regression_result": "passed",
+  "final_zip_signature": "pending final ZIP build",
+  "static_analysis": {
+    "high": 0,
+    "medium": 0,
+    "low": 4,
+    "rules": [
+      "B404",
+      "B603"
+    ],
+    "manual_context": "Fixed local PowerShell/icacls executables and argv arrays, no shell=True, quoted or encoded filesystem paths, no credential values in subprocess arguments."
+  }
+}

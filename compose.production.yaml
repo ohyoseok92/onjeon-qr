@@ -1,0 +1,62 @@
+name: onjeon-production
+
+services:
+  app:
+    image: ${ONJEON_IMAGE:?Set the independently verified immutable image ID}
+    command: ["python", "/run/ops/run_production_server.py"]
+    ports:
+      - "127.0.0.1:8002:8000"
+    environment:
+      ONJEON_ENV: production
+      ONJEON_ENV_FILE: /run/app-secrets/production.env
+      ONJEON_TLS_CRL_BUNDLE: /run/tls/revocations.pem
+      ONJEON_TRUSTED_PROXY_IP: ${ONJEON_BRIDGE_GATEWAY:-172.29.253.1}
+    networks:
+      - trusted-proxy-bridge
+    volumes:
+      - type: bind
+        source: ${ONJEON_RUNTIME:?Set the verified runtime scripts directory}/run_production_server.py
+        target: /run/ops/run_production_server.py
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ONJEON_PROFILE:?Set the protected absolute profile directory}/application/production.env
+        target: /run/app-secrets/production.env
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ONJEON_PROFILE}/tls
+        target: /run/tls
+        read_only: true
+        bind:
+          create_host_path: false
+      - production-data:/app/data
+      - production-keys:/app/.secrets
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 192m
+    cpus: 0.5
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,json; r=json.load(urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=2)); assert r['status']=='ok' and r['url_analysis']['available']"]
+      interval: 30s
+      timeout: 4s
+      start_period: 15s
+
+volumes:
+  production-data:
+  production-keys:
+
+networks:
+  trusted-proxy-bridge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${ONJEON_BRIDGE_SUBNET:-172.29.253.0/29}
+          gateway: ${ONJEON_BRIDGE_GATEWAY:-172.29.253.1}

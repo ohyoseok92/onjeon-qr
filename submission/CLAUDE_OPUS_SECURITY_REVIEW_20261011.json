@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-11",
+  "cli_version": "2.1.287",
+  "actual_models": [
+    "claude-opus-5-5"
+  ],
+  "requested_effort": "high",
+  "elapsed_seconds": 608.53,
+  "enabled_tools": [
+    "Read",
+    "Glob",
+    "Grep"
+  ],
+  "snapshot_files": 144,
+  "snapshot_unchanged": true,
+  "source_archive_sha256": "cbfe5847b1006adb18dbd627d78012b6f480e8e83f602594e999f1a3e2259306",
+  "source_archive_unchanged": true,
+  "raw_review_sha256": "a238eae72c6566c5d5a96436b4909bfc0c2878f8732637894a662e5e8a6f4d8b",
+  "read_paths": [
+    ".dockerignore",
+    ".github/workflows/ci.yml",
+    ".gitignore",
+    "Dockerfile",
+    "compose.security.yaml",
+    "compose.yaml",
+    "frontend/dist/index.html",
+    "frontend/index.html",
+    "frontend/public/sw.js",
+    "frontend/src/App.tsx",
+    "frontend/src/CitizenView.tsx",
+    "frontend/src/IssuerView.tsx",
+    "frontend/src/QrReader.ts",
+    "frontend/src/api.ts",
+    "frontend/src/main.tsx",
+    "frontend/vite.config.ts",
+    "scripts/build_submission.py",
+    "scripts/check_docker_runtime.py",
+    "scripts/check_encrypted_docker_backup.py",
+    "scripts/check_legacy_credentials.py",
+    "scripts/check_recovery.py",
+    "scripts/create_local_tls_fixture.py",
+    "scripts/lock_dependencies.py",
+    "scripts/prepare_demo.py",
+    "scripts/run_security_demo.py",
+    "scripts/run_tls_server.py",
+    "scripts/secure_profile.py",
+    "scripts/verify_submission.py",
+    "scripts/zap_local_plan.yaml",
+    "src/onjeon/__init__.py",
+    "src/onjeon/analyzer.py",
+    "src/onjeon/api.py",
+    "src/onjeon/cli.py",
+    "src/onjeon/crypto.py",
+    "src/onjeon/storage.py",
+    "submission/DOCKER_BACKUP_CHECK.json",
+    "submission/DOCKER_IMAGE_SCAN.json",
+    "submission/DOCKER_IMAGE_SCAN.md",
+    "submission/DOCKER_RUNTIME_CHECK.json",
+    "submission/DOCKER_RUNTIME_CHECK.md",
+    "submission/FULL_GUIDE_01.md",
+    "submission/FULL_GUIDE_02.md",
+    "submission/FULL_GUIDE_03.md",
+    "submission/FULL_GUIDE_04_05.md",
+    "submission/GUIDE_SECURITY_REVIEW.md",
+    "submission/OPERATION_SECURITY.md",
+    "submission/RECOVERY_CHECK.md",
+    "submission/RELEASE_VERIFICATION.md",
+    "submission/SECURITY_CHECKLIST_49.md",
+    "submission/SECURITY_CONDITIONS_REVIEW.md",
+    "submission/SECURITY_CONDITIONS_TLS.md",
+    "submission/TEST_REPORT.md",
+    "tests/test_analyzer.py",
+    "tests/test_api.py",
+    "tests/test_storage.py"
+  ],
+  "unique_read_paths": 55,
+  "severity_counts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 4,
+    "informational": 7
+  },
+  "remediation_performed": false,
+  "validation": {
+    "M1": {
+      "capacity_for_synthetic_test": 3,
+      "public_verify_fill": [
+        true,
+        true,
+        true
+      ],
+      "admin_allowed_same_window": false,
+      "admin_allowed_next_window": false,
+      "retained_rows": 3,
+      "only_synthetic_db": true
+    },
+    "L3": {
+      "valid_institution_and_version_pairs": [
+        [
+          "aa-b",
+          "c"
+        ],
+        [
+          "aa",
+          "b-c"
+        ]
+      ],
+      "legacy_path_collision": true
+    },
+    "L1": {
+      "runtime_image": "sha256:1e5f37f52e3ae5f34cc982310eeaea5f3bd3aaaec2c1cc6aad01913fd61ac331",
+      "python": "3.12.15",
+      "address": "fec0::1",
+      "is_global": true,
+      "is_reserved": false,
+      "is_site_local": true,
+      "current_filter_allows": true,
+      "network": "none",
+      "read_only": true,
+      "no_actual_internal_connection_attempted": true
+    },
+    "L2": {
+      "status": "source_confirmed_existing_recovery_evidence",
+      "new_restore_test": false
+    },
+    "L4": {
+      "status": "source_confirmed_policy_availability_tradeoff",
+      "expired_production_restart_attempted": false
+    }
+  },
+  "scope_note": "Static read-only review; some files read partially; original guide PDFs not included; no new vulnerability database lookup."
+}

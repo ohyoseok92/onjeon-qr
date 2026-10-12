@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "executed_at_utc": "2026-10-11T10:09:51.301458+00:00",
+  "executed_at_korea": "2026-10-11T19:09:51.301458+09:00",
+  "duration_seconds": 6.239,
+  "environment": {
+    "python": "3.12.10",
+    "os": "Windows",
+    "os_release": "11",
+    "architecture": "AMD64",
+    "dependencies": {
+      "fastapi": "0.142.2",
+      "starlette": "1.7.0",
+      "httpx": "0.28.1",
+      "cryptography": "50.0.2"
+    }
+  },
+  "signed_qr": {
+    "data_origin": "synthetic",
+    "samples": 100,
+    "correct": 100,
+    "correct_rate_percent": 100,
+    "categories": {
+      "normal": {
+        "samples": 50,
+        "correct": 50,
+        "expected_status": "trusted",
+        "reasons": {
+          "valid_signature": 50
+        }
+      },
+      "tampered": {
+        "samples": 25,
+        "correct": 25,
+        "expected_status": "blocked",
+        "reasons": {
+          "invalid_signature": 25
+        }
+      },
+      "revoked": {
+        "samples": 13,
+        "correct": 13,
+        "expected_status": "blocked",
+        "reasons": {
+          "revoked": 13
+        }
+      },
+      "expired": {
+        "samples": 12,
+        "correct": 12,
+        "expected_status": "blocked",
+        "reasons": {
+          "expired_or_invalid_time": 12
+        }
+      }
+    },
+    "method": "Real issuance/revocation/verification API with temporary SQLite and keys; 12 expiry cases use a clock advanced by two hours.",
+    "rate_limits": "Unmodified; ten TestClient identities from documentation-only address range 192.0.2.0/24.",
+    "latency": {
+      "samples": 100,
+      "unit": "milliseconds",
+      "p50": 16.697,
+      "p95": 22.346,
+      "minimum": 13.704,
+      "maximum": 126.285,
+      "method": "Sequential successful signed verification API calls via TestClient; includes ASGI middleware and SQLite, excludes real network/browser/TLS/production load."
+    }
+  },
+  "unsigned_url_policy": {
+    "data_origin": "synthetic",
+    "risk_samples": 100,
+    "benign_samples": 50,
+    "network_mock_scope": "DNS answers and HEAD/TLS outcomes are controlled fixtures. URL parsing, public-IP filtering, redirect policy, and warning classification execute real analyzer code. No external network request.",
+    "risk_scenarios": {
+      "private_dns": {
+        "samples": 20,
+        "expected_policy_signal": "non_public_address",
+        "signal_detected": 20,
+        "blocked": 20
+      },
+      "insecure_http": {
+        "samples": 20,
+        "expected_policy_signal": "insecure_scheme",
+        "signal_detected": 20,
+        "blocked": 20
+      },
+      "insecure_redirect": {
+        "samples": 20,
+        "expected_policy_signal": "unsafe_redirect",
+        "signal_detected": 20,
+        "blocked": 20
+      },
+      "invalid_tls": {
+        "samples": 20,
+        "expected_policy_signal": "tls_invalid",
+        "signal_detected": 20,
+        "blocked": 20
+      },
+      "installation_file": {
+        "samples": 20,
+        "expected_policy_signal": "install_file",
+        "signal_detected": 20,
+        "blocked": 0
+      }
+    },
+    "expected_policy_signal_rate_percent": 100,
+    "blocked_risk_samples": 80,
+    "benign_specific_risk_flags": 0,
+    "benign_specific_risk_flag_rate_percent": 0.0,
+    "benign_unsigned_warning_samples": 50,
+    "definitions": {
+      "risk_detected": "Expected scenario signal appears in reason or signals; installation-file cases are warnings, not blocked.",
+      "benign_risk_flag": "Blocked verdict or a specific listed risk signal. The required unsigned_qr and official_domain_unverified warnings are excluded.",
+      "limits": "This measures synthetic policy branches, not malicious-URL detection accuracy or production false positives. All benign unsigned URLs remain warnings and never become trusted."
+    }
+  },
+  "target_comparison": {
+    "signed_qr_correctness": "100 synthetic API cases cover 50 normal, 25 tampered, and 25 expired/revoked QRs.",
+    "verification_time": "Local p95 can be compared to the one-second goal only as a local API benchmark; real browser/network/scan latency remains unmeasured.",
+    "dangerous_url_detection_95_percent": "Not established. Synthetic expected-policy-signal coverage is not accuracy on independently labeled malicious URLs.",
+    "false_positive_below_5_percent": "Not established. Benign unsigned warning rate is deliberately 100%; the narrower specific-risk-flag metric cannot replace the planned production false-positive target."
+  },
+  "privacy": "Only aggregate counts, timing, and environment are saved. Temporary keys, tokens, QR payloads, destinations, and database files are discarded."
+}
