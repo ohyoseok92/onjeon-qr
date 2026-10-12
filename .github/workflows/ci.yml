@@ -67,6 +67,31 @@ jobs:
       - run: npm run build
       - run: npm audit --audit-level=high
 
+  image-artifact:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, '[build-image]')
+    needs: [backend, frontend]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Build production image from tested commit
+        run: |
+          docker build --pull --tag "onjeon-security-local:${GITHUB_SHA}" .
+          mkdir -p "$RUNNER_TEMP/onjeon-image"
+          docker image inspect --format '{{.Id}}' "onjeon-security-local:${GITHUB_SHA}" > "$RUNNER_TEMP/onjeon-image/image-id.txt"
+          printf '%s\n' "$GITHUB_SHA" > "$RUNNER_TEMP/onjeon-image/commit.txt"
+          docker save "onjeon-security-local:${GITHUB_SHA}" | gzip -1 > "$RUNNER_TEMP/onjeon-image/image.tar.gz"
+          cd "$RUNNER_TEMP/onjeon-image"
+          sha256sum image.tar.gz > image.tar.gz.sha256
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: onjeon-production-image-${{ github.sha }}
+          path: ${{ runner.temp }}/onjeon-image/
+          if-no-files-found: error
+          retention-days: 7
+
   release-verification:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && vars.ONJEON_RELEASE_TAG != '')
     needs: [backend, frontend]
