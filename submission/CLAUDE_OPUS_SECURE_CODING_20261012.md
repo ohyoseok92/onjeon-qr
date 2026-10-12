@@ -35,4 +35,13 @@
 - 관련 API·저장소·운영 프록시 테스트 `95 passed, 1 skipped`; Bandit 서비스 코드 검사 0건, `compileall` 및 `git diff --check` 통과. Compose 설정 해석에서 게이트웨이와 앱 신뢰 IP가 일치하고 원본 포트가 `127.0.0.1`로만 게시되는 것을 확인했다. 로컬 전체 테스트 실행은 긴 시간이 걸려 중단했다.
 - 이후 GitHub [CI 실행 38196019168](https://github.com/ohyoseok92/onjeon-qr/actions/runs/38196019168)에서 Linux 전체 Python 테스트 `291 passed`, 프런트엔드 테스트·빌드·npm audit, Bandit, pip-audit, 릴리스 검증이 모두 통과했다. 이 실행은 수정 커밋 `fb17dce`를 대상으로 한다.
 
-**운영 상태:** 이 수정은 현재 로컬 소스에만 있다. 서버 SSH 연결이 시간 초과되고 로컬 Docker 엔진도 연결되지 않아 새 컨테이너 이미지와 Nginx 설정을 실제 공개 서버에 적용하거나 실서비스에서 검증하지 못했다. 공개 서비스의 F-1은 배포 전까지 남아 있다.
+**배포 전 상태:** 당시에는 서버 SSH 연결이 시간 초과되고 로컬 Docker 엔진도 연결되지 않아 새 컨테이너 이미지와 Nginx 설정을 실제 공개 서버에 적용하지 못했다.
+
+## 운영 적용 및 확인 (2026-10-12)
+
+- NCP `ohs-default-acg`에 현재 작업 PC 주소만 허용하는 임시 SSH 규칙을 추가한 뒤 서버에 접속했다. 기존 Compose·기동 스크립트·Nginx 설정과 systemd 유닛은 `/srv/onjeon-qr/runtime/pre-8419a97/`에 보관했다.
+- [CI 실행 38198480561](https://github.com/ohyoseok92/onjeon-qr/actions/runs/38198480561)에서 백엔드·프런트엔드·릴리스 검증을 통과한 커밋 `8419a97`을 Docker 이미지로 빌드했다. 다운로드한 압축 이미지의 SHA-256 `693345a9714dfcca259aa8f6f932248481ab0b33fae1757f24dfb0722963c5f3`가 서버 전송 후에도 같았다. 서버가 로드한 OCI 매니페스트 ID는 `sha256:14852072c1ba519bbf0c3b7a7ad4a90e810c073d34747acd1310ed5db56d5291`이다.
+- 운영 컨테이너를 새 이미지로 교체하고 원래의 `production-data`, `production-keys` 볼륨은 그대로 사용했다. 전용 Docker 브리지의 실제 서브넷은 `172.29.253.0/29`, 게이트웨이는 `172.29.253.1`이다. 컨테이너는 `127.0.0.1:8002`에만 게시되고 Docker 건강 검사에서 정상이다.
+- Nginx가 호출자의 전달 헤더를 실제 접속 IP로 덮어쓰도록 적용하고 `nginx -t` 통과 후 재적재했다. 공개 경로에 정상 요청 1건과 위조 `X-Forwarded-For: 203.0.113.77` 요청 1건을 보낸 결과, 실제 접속 IP의 `/analyze` 카운터만 2 증가했고 위조 주소 및 Docker 게이트웨이 카운터는 증가하지 않았다.
+- 공개 `https://qr.ohs92.com`은 HTTP 200, 인증서 검증, TLS 1.3, 보안 헤더, `/health`가 모두 통과했다. 독립 운영 건강 검사 컨테이너도 `ready=true`였고 새 이미지로 갱신한 `onjeon-health-check.service`는 성공했다. CRL 갱신 서비스도 같은 이미지로 고정했으며 기존 타이머는 활성 상태다.
+- 남은 한계: 실서비스에 높은 부하를 주는 시험은 하지 않았으므로 F-2의 대량 인증 실패 상황에서의 처리량 임계값은 측정하지 않았다.
