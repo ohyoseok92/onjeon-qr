@@ -15,6 +15,14 @@ from onjeon.api import Settings, _hash_token, _verify_token, create_app
 from onjeon.crypto import b64url_encode, canonical_bytes, create_private_key, load_private_key, make_qr, parse_qr
 
 
+def freeze_rate_window(monkeypatch):
+    """Keep quota assertions inside one minute without changing the global clock."""
+    from types import SimpleNamespace
+    from onjeon import api
+
+    monkeypatch.setattr(api, "time", SimpleNamespace(time=lambda: 1800000000, monotonic=api.time.monotonic))
+
+
 def configure_production_crl(tmp_path, monkeypatch):
     from cryptography import x509
     from cryptography.hazmat.primitives import hashes, serialization
@@ -108,6 +116,7 @@ def test_failure_audit_aggregates_and_changes_source_each_day(setup, monkeypatch
 
 
 def test_issuer_rate_limit_is_audited_and_audit_failure_preserves_denial(setup, monkeypatch, caplog):
+    freeze_rate_window(monkeypatch)
     client, settings, _ = setup
     for _ in range(30):
         assert client.get("/institutions/city/dashboard").status_code == 401
@@ -196,7 +205,8 @@ def test_asgi_body_readers_are_bounded_and_slots_released(setup):
     asyncio.run(scenario())
 
 
-def test_rate_limit_rejects_before_asgi_body_read(setup):
+def test_rate_limit_rejects_before_asgi_body_read(setup, monkeypatch):
+    freeze_rate_window(monkeypatch)
     client, _, _ = setup
     for _ in range(60):
         assert client.post("/verify", json={"qr_text": "invalid"}).status_code == 200
@@ -336,11 +346,9 @@ def test_api_and_docs_headers(setup):
 
 
 def test_unsigned_analysis_and_public_rate_limit(setup, monkeypatch):
-    from onjeon import analyzer, api
-    from types import SimpleNamespace
+    from onjeon import analyzer
 
-    # Test quota exhaustion within one fixed window, not a wall-clock rollover.
-    monkeypatch.setattr(api, "time", SimpleNamespace(time=lambda: 1800000000, monotonic=api.time.monotonic))
+    freeze_rate_window(monkeypatch)
 
     client, settings, _ = setup
     monkeypatch.setattr(analyzer, "_resolve_public", lambda host, **kwargs: "93.184.215.14")
@@ -464,6 +472,7 @@ def test_production_rejects_legacy_issuer_hash_without_replacing_credentials(set
 
 
 def test_rate_storage_failure_is_closed_and_no_forwarded_header_bypass(setup, monkeypatch, caplog):
+    freeze_rate_window(monkeypatch)
     client, _, _ = setup
     for index in range(60):
         assert client.post("/verify", json={"qr_text": "invalid"}, headers={"X-Forwarded-For": f"192.0.2.{index}"}).status_code == 200
@@ -476,7 +485,8 @@ def test_rate_storage_failure_is_closed_and_no_forwarded_header_bypass(setup, mo
     assert "secret-rate-path" not in response.text + caplog.text
 
 
-def test_only_trusted_proxy_can_split_public_client_quotas(tmp_path):
+def test_only_trusted_proxy_can_split_public_client_quotas(tmp_path, monkeypatch):
+    freeze_rate_window(monkeypatch)
     settings = Settings(tmp_path / "data.sqlite3", tmp_path / "keys", "a" * 40)
     app = ProxyHeadersMiddleware(create_app(settings), trusted_hosts=["172.29.253.1"])
     trusted = TestClient(app, client=("172.29.253.1", 42000))
@@ -497,7 +507,8 @@ def test_only_trusted_proxy_can_split_public_client_quotas(tmp_path):
                           headers={"X-Forwarded-For": "203.0.113.99"}).status_code == 429
 
 
-def test_authenticated_institutions_have_independent_quotas(setup):
+def test_authenticated_institutions_have_independent_quotas(setup, monkeypatch):
+    freeze_rate_window(monkeypatch)
     client, settings, city_token = setup
     other_key = create_private_key(settings.key_directory / "other-v1.pem")
     response = client.post("/admin/institutions", headers={"Authorization": "Bearer " + settings.admin_token},
@@ -541,7 +552,8 @@ def test_configured_frontend_is_served(tmp_path, monkeypatch):
     assert response.headers["Cache-Control"] == "no-store"
 
 
-def test_issuer_flood_does_not_exhaust_admin_bucket(setup):
+def test_issuer_flood_does_not_exhaust_admin_bucket(setup, monkeypatch):
+    freeze_rate_window(monkeypatch)
     client, settings, _ = setup
     for _ in range(31):
         client.post("/institutions/city/qrs", headers={"Authorization": "Bearer invalid"}, json={})
