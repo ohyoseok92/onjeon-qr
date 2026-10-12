@@ -39,7 +39,7 @@
 
 ## 운영 적용 및 확인 (2026-10-12)
 
-- NCP `ohs-default-acg`에 현재 작업 PC 주소만 허용하는 임시 SSH 규칙을 추가한 뒤 서버에 접속했다. 기존 Compose·기동 스크립트·Nginx 설정과 systemd 유닛은 `/srv/onjeon-qr/runtime/pre-8419a97/`에 보관했다.
+- NCP `ohs-default-acg`에 현재 작업 PC 주소만 허용하는 임시 SSH 규칙을 추가한 뒤 서버에 접속했다. 기존 Compose·기동 스크립트·Nginx 설정과 systemd 유닛은 `/srv/onjeon-qr/runtime/pre-8419a97/`에 보관했다. 배포 검증 뒤 임시 규칙을 제거하고 ACG 목록에서 사라진 것을 확인했다.
 - [CI 실행 38198480561](https://github.com/ohyoseok92/onjeon-qr/actions/runs/38198480561)에서 백엔드·프런트엔드·릴리스 검증을 통과한 커밋 `8419a97`을 Docker 이미지로 빌드했다. 다운로드한 압축 이미지의 SHA-256 `693345a9714dfcca259aa8f6f932248481ab0b33fae1757f24dfb0722963c5f3`가 서버 전송 후에도 같았다. 서버가 로드한 OCI 매니페스트 ID는 `sha256:14852072c1ba519bbf0c3b7a7ad4a90e810c073d34747acd1310ed5db56d5291`이다.
 - 운영 컨테이너를 새 이미지로 교체하고 원래의 `production-data`, `production-keys` 볼륨은 그대로 사용했다. 전용 Docker 브리지의 실제 서브넷은 `172.29.253.0/29`, 게이트웨이는 `172.29.253.1`이다. 컨테이너는 `127.0.0.1:8002`에만 게시되고 Docker 건강 검사에서 정상이다.
 - Nginx가 호출자의 전달 헤더를 실제 접속 IP로 덮어쓰도록 적용하고 `nginx -t` 통과 후 재적재했다. 공개 경로에 정상 요청 1건과 위조 `X-Forwarded-For: 203.0.113.77` 요청 1건을 보낸 결과, 실제 접속 IP의 `/analyze` 카운터만 2 증가했고 위조 주소 및 Docker 게이트웨이 카운터는 증가하지 않았다.
