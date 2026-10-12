@@ -153,11 +153,22 @@ def maintenance(path: Path, now: int) -> None:
 
 
 def _prune_security_events(connection: sqlite3.Connection, now: int) -> None:
+    _prune_security_event_age(connection, now)
+    _prune_security_event_excess(connection)
+
+
+def _prune_security_event_age(connection: sqlite3.Connection, now: int) -> None:
     connection.execute("DELETE FROM security_events WHERE occurred_at <= ?", (now - SECURITY_EVENT_RETENTION_SECONDS,))
-    connection.execute(
-        "DELETE FROM security_events WHERE id IN (SELECT id FROM security_events "
-        "ORDER BY occurred_at DESC, id DESC LIMIT -1 OFFSET ?)", (SECURITY_EVENT_MAX_ROWS,),
-    )
+
+
+def _prune_security_event_excess(connection: sqlite3.Connection) -> None:
+    excess = connection.execute("SELECT COUNT(*) FROM security_events").fetchone()[0] - SECURITY_EVENT_MAX_ROWS
+    if excess > 0:
+        # The (occurred_at, id) index finds only the oldest rows to evict.
+        connection.execute(
+            "DELETE FROM security_events WHERE id IN (SELECT id FROM security_events "
+            "ORDER BY occurred_at, id LIMIT ?)", (excess,),
+        )
 
 
 def record_security_event(path: Path, *, actor_role: str, institution_id: str | None,
@@ -165,16 +176,21 @@ def record_security_event(path: Path, *, actor_role: str, institution_id: str | 
     # A short busy timeout keeps denial responses available if audit storage is unavailable.
     with closing(sqlite3.connect(path, timeout=0.2)) as connection:
         connection.execute("BEGIN IMMEDIATE")
+        _prune_security_event_age(connection, now)
         institution = connection.execute("SELECT id FROM institutions WHERE id = ?", (institution_id,)).fetchone()
         recognized_id = institution[0] if institution else ""
-        connection.execute(
+        attempt_count = connection.execute(
             "INSERT INTO security_events (actor_role, institution_id, event_type, status_code, "
             "anonymous_source, window_started_at, occurred_at) VALUES (?, ?, ?, ?, ?, ?, ?) "
             "ON CONFLICT(actor_role, institution_id, event_type, status_code, anonymous_source, window_started_at) "
-            "DO UPDATE SET occurred_at = excluded.occurred_at, attempt_count = MIN(attempt_count + 1, 2147483647)",
+            "DO UPDATE SET occurred_at = excluded.occurred_at, attempt_count = MIN(attempt_count + 1, 2147483647) "
+            "RETURNING attempt_count",
             (actor_role, recognized_id, event_type, status_code, anonymous_source, now // 60 * 60, now),
-        )
-        _prune_security_events(connection, now)
+        ).fetchone()[0]
+        if attempt_count == 1:
+            # An aggregation update cannot increase the row count. Keep the
+            # bounded full-table count out of the repeated failure hot path.
+            _prune_security_event_excess(connection)
         connection.commit()
 
 

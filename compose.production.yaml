@@ -10,6 +10,9 @@ services:
       ONJEON_ENV: production
       ONJEON_ENV_FILE: /run/app-secrets/production.env
       ONJEON_TLS_CRL_BUNDLE: /run/tls/revocations.pem
+      ONJEON_TRUSTED_PROXY_IP: ${ONJEON_BRIDGE_GATEWAY:-172.29.253.1}
+    networks:
+      - trusted-proxy-bridge
     volumes:
       - type: bind
         source: ${ONJEON_RUNTIME:?Set the verified runtime scripts directory}/run_production_server.py
@@ -49,3 +52,11 @@ services:
 volumes:
   production-data:
   production-keys:
+
+networks:
+  trusted-proxy-bridge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${ONJEON_BRIDGE_SUBNET:-172.29.253.0/29}
+          gateway: ${ONJEON_BRIDGE_GATEWAY:-172.29.253.1}

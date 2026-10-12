@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 from fastapi.testclient import TestClient
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 
 from onjeon.api import Settings, _hash_token, _verify_token, create_app
 from onjeon.crypto import b64url_encode, canonical_bytes, create_private_key, load_private_key, make_qr, parse_qr
@@ -473,6 +474,41 @@ def test_rate_storage_failure_is_closed_and_no_forwarded_header_bypass(setup, mo
     response = client.post("/verify", json={"qr_text": "invalid"})
     assert response.status_code == 429 and response.headers["Cache-Control"] == "no-store"
     assert "secret-rate-path" not in response.text + caplog.text
+
+
+def test_only_trusted_proxy_can_split_public_client_quotas(tmp_path):
+    settings = Settings(tmp_path / "data.sqlite3", tmp_path / "keys", "a" * 40)
+    app = ProxyHeadersMiddleware(create_app(settings), trusted_hosts=["172.29.253.1"])
+    trusted = TestClient(app, client=("172.29.253.1", 42000))
+    for _ in range(60):
+        assert trusted.post("/verify", json={"qr_text": "invalid"},
+                            headers={"X-Forwarded-For": "198.51.100.1"}).status_code == 200
+    assert trusted.post("/verify", json={"qr_text": "invalid"},
+                        headers={"X-Forwarded-For": "198.51.100.1"}).status_code == 429
+    assert trusted.post("/verify", json={"qr_text": "invalid"},
+                        headers={"X-Forwarded-For": "198.51.100.2"}).status_code == 200
+
+    # A peer other than the dedicated gateway cannot change its identity with XFF.
+    untrusted = TestClient(app, client=("172.29.253.2", 42000))
+    for index in range(60):
+        assert untrusted.post("/verify", json={"qr_text": "invalid"},
+                              headers={"X-Forwarded-For": f"203.0.113.{index + 1}"}).status_code == 200
+    assert untrusted.post("/verify", json={"qr_text": "invalid"},
+                          headers={"X-Forwarded-For": "203.0.113.99"}).status_code == 429
+
+
+def test_authenticated_institutions_have_independent_quotas(setup):
+    client, settings, city_token = setup
+    other_key = create_private_key(settings.key_directory / "other-v1.pem")
+    response = client.post("/admin/institutions", headers={"Authorization": "Bearer " + settings.admin_token},
+                           json={"institution_id": "other", "name": "다른 기관", "official_domains": ["other.example.org"],
+                                 "key_version": "v1", "public_key": other_key})
+    assert response.status_code == 201
+    other_token = response.json()["issuer_token"]
+    for _ in range(30):
+        assert dashboard(client, city_token).status_code == 200
+    assert dashboard(client, city_token).status_code == 429
+    assert dashboard(client, other_token, "other").status_code == 200
 
 
 def test_idle_lifespan_maintenance_removes_expired_rows(setup, monkeypatch):

@@ -276,6 +276,57 @@ def test_security_event_retention_maximum_and_aggregation(tmp_path, monkeypatch)
         assert db.execute("SELECT COUNT(*) FROM security_events").fetchone()[0] == 0
 
 
+def test_security_event_cap_is_enforced_on_insert_without_recounting_aggregates(tmp_path, monkeypatch):
+    import onjeon.storage as storage
+    path = tmp_path / "private.sqlite3"
+    initialize(path)
+    monkeypatch.setattr(storage, "SECURITY_EVENT_MAX_ROWS", 3)
+    cap_checks = 0
+    original = storage._prune_security_event_excess
+
+    def count_cap_checks(connection):
+        nonlocal cap_checks
+        cap_checks += 1
+        original(connection)
+
+    monkeypatch.setattr(storage, "_prune_security_event_excess", count_cap_checks)
+    now = 1800000000
+
+    def record(source, at=now):
+        record_security_event(path, actor_role="admin", institution_id=None,
+                              event_type="authentication_failed", status_code=403,
+                              anonymous_source=source, now=at)
+
+    for index in range(3):
+        record(f"source-{index}", now + index)
+    for _ in range(20):
+        record("source-2", now + 3)
+    assert cap_checks == 3
+    with sqlite3.connect(path) as db:
+        assert db.execute("SELECT COUNT(*) FROM security_events").fetchone()[0] == 3
+        assert db.execute("SELECT attempt_count FROM security_events WHERE anonymous_source = 'source-2'").fetchone() == (21,)
+
+    record("source-3", now + 4)
+    assert cap_checks == 4
+    with sqlite3.connect(path) as db:
+        assert db.execute("SELECT COUNT(*) FROM security_events").fetchone()[0] == 3
+        assert {row[0] for row in db.execute("SELECT anonymous_source FROM security_events")} == {
+            "source-1", "source-2", "source-3",
+        }
+
+
+def test_security_event_retention_is_enforced_on_write(tmp_path):
+    path = tmp_path / "private.sqlite3"
+    initialize(path)
+    now = 1800000000
+    for source, at in (("expired", now), ("current", now + 7 * 86400)):
+        record_security_event(path, actor_role="issuer", institution_id=None,
+                              event_type="authentication_failed", status_code=401,
+                              anonymous_source=source, now=at)
+    with sqlite3.connect(path) as db:
+        assert db.execute("SELECT anonymous_source FROM security_events").fetchall() == [("current",)]
+
+
 @pytest.mark.skipif(os.name != "posix", reason="Windows uses deployment ACLs instead of POSIX mode")
 def test_database_permissions_are_owner_only(tmp_path):
     path = tmp_path / "state" / "private.sqlite3"

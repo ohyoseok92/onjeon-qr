@@ -288,6 +288,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 return response
             group = "analyze" if path == "/analyze" else ("verify" if path == "/verify" else ("admin" if path.startswith("/admin/") else "issuer"))
             authentication_failure = None
+            authenticated_issuer_id = None
             if group in ("admin", "issuer"):
                 admission = authentication_slots[group]
                 if not admission.acquire(blocking=False):
@@ -305,6 +306,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                             with database(settings.database_path, write=False) as db:
                                 require_issuer(db, match[1] if match else "", credentials)
                         await run_in_threadpool(check_issuer)
+                        authenticated_issuer_id = match[1] if match else None
                 except HTTPException as exc:
                     authentication_failure = JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
                     group += "_auth"
@@ -319,9 +321,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 pass
             limit = {"analyze": 10, "verify": 60, "issuer": 30, "admin": 30,
                      "admin_auth": 30, "issuer_auth": 30}[group]
+            # An authenticated institution gets its own quota even when multiple
+            # institutions connect from the same address or trusted proxy.
+            rate_subject = f"institution:{authenticated_issuer_id}" if group == "issuer" and authenticated_issuer_id else address
             try:
                 allowed = await run_in_threadpool(consume_rate_limit, settings.database_path, rate_key,
-                                                group, address, int(time.time()), limit)
+                                                group, rate_subject, int(time.time()), limit)
             except (sqlite3.Error, OSError):
                 logger.error("RATE_LIMIT_STORAGE_UNAVAILABLE")
                 return JSONResponse({"detail": "Rate limiter unavailable"}, status_code=429)
