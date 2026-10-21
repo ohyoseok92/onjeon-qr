@@ -1,6 +1,6 @@
 # Third-party notices
 
-Generated: 2026-10-11T09:39:33.305688Z
+Generated: 2026-10-21T12:55:33.826470Z
 
 The following license declarations and full texts come from the exact installed production packages. Texts are copied unchanged; SHA-256 and paths are recorded in `SUPPLY_CHAIN_VALIDATION.json`. A declaration is not a legal compatibility opinion. Supplier names are not inferred from authors or repository hosts.
 
@@ -19,7 +19,7 @@ Python wheel/sdist archives are not retained, so the SBOM does not claim an inst
 | python | h11 0.16.0 | MIT | [LICENSE.txt](<licenses/python/h11-0.16.0/h11-0.16.0.dist-info/licenses/LICENSE.txt>) |
 | python | idna 3.20 | BSD-3-Clause | [LICENSE.md](<licenses/python/idna-3.20/idna-3.20.dist-info/licenses/LICENSE.md>) |
 | python | opentelemetry-api 1.45.1 | Apache-2.0 | [LICENSE](<licenses/python/opentelemetry-api-1.45.1/opentelemetry_api-1.45.1.dist-info/licenses/LICENSE>) |
-| python | pillow 12.3.0 | MIT-CMU | [LICENSE](<licenses/python/pillow-12.3.0/pillow-12.3.0.dist-info/licenses/LICENSE>) |
+| python | pillow 13.0.0 | MIT-CMU | [LICENSE](<licenses/python/pillow-13.0.0/pillow-13.0.0.dist-info/licenses/LICENSE>) |
 | python | pycparser 3.0 | BSD-3-Clause | [LICENSE](<licenses/python/pycparser-3.0/pycparser-3.0.dist-info/licenses/LICENSE>) |
 | python | pydantic 2.13.5 | MIT | [LICENSE](<licenses/python/pydantic-2.13.5/pydantic-2.13.5.dist-info/licenses/LICENSE>) |
 | python | pydantic-core 2.46.5 | MIT | [LICENSE](<licenses/python/pydantic-core-2.46.5/pydantic_core-2.46.5.dist-info/licenses/LICENSE>) |

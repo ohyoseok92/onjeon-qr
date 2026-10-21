@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T09:39:33.305688Z",
+  "generated_at": "2026-10-21T12:55:33.826470Z",
   "python": {
     "component_count": 20,
     "lock_count": 20,
@@ -208,13 +208,13 @@
     {
       "ecosystem": "python",
       "name": "pillow",
-      "version": "12.3.0",
+      "version": "13.0.0",
       "declared_license": "MIT-CMU",
       "files": [
         {
-          "path": "licenses/python/pillow-12.3.0/pillow-12.3.0.dist-info/licenses/LICENSE",
-          "sha256": "4f7866a74802c6326f81faff59a56546b6aec2b10b91973e0e9308de95e79857",
-          "bytes": 78016
+          "path": "licenses/python/pillow-13.0.0/pillow-13.0.0.dist-info/licenses/LICENSE",
+          "sha256": "988ffe8ab3480b0f4e9a0ab2702bffd73d9fb6b47198043fb3ba101a62fac236",
+          "bytes": 78481
         }
       ]
     },
@@ -430,16 +430,5 @@
   "hash_semantics": "Python lock SHA-256 values are approved wheel/sdist candidate hashes, not a claim about the installed archive. No RECORD aggregate hash is used. Copied license SHA-256 checks text fidelity. npm integrity refers to its locked distribution archive.",
   "supplier_semantics": "Only explicit Supplier/supplier declarations count; unknown is stated. Authors and repository hosts are not inferred suppliers.",
   "scope": "Production Python runtime and installed npm production runtime; development/build packages and native binary subcomponents are not expanded into separate components.",
-  "passed": true,
-  "schema_validation": {
-    "checked_at": "2026-10-11T09:39:40.120827+00:00",
-    "validator": "jsonschema Draft7Validator",
-    "validator_version": "4.25.1",
-    "official_specification": "CycloneDX specification git tag 1.5",
-    "results": {
-      "SBOM.python.cdx.json": [],
-      "SBOM.frontend.cdx.json": []
-    },
-    "passed": true
-  }
+  "passed": true
 }
