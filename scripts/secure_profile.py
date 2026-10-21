@@ -79,6 +79,7 @@ def protect_directory(path: Path) -> None:
 def verify_private(path: Path) -> dict:
     if path.is_symlink():
         raise ValueError("Private path must not be a symlink")
+    info = path.stat()
     if os.name == "nt":
         acl = _windows_acl(path)
         allowed = {_windows_identity(), "S-1-5-18"}
@@ -90,11 +91,11 @@ def verify_private(path: Path) -> dict:
         return {"platform": "windows", "allowed_identities": "current user and SYSTEM only",
                 "rule_count": len(rules), "other_identity_count": 0,
                 "inheritance_protected": acl["protected"]}
-    mode = stat.S_IMODE(path.stat().st_mode)
+    mode = stat.S_IMODE(info.st_mode)
     expected = 0o700 if path.is_dir() else 0o600
     if mode != expected:
         raise ValueError("Private path has unsafe POSIX permissions")
-    return {"platform": "posix", "mode": oct(mode), "owner_uid": path.stat().st_uid}
+    return {"platform": "posix", "mode": oct(mode), "owner_uid": info.st_uid}
 
 
 def private_write(path: Path, value: bytes) -> None:

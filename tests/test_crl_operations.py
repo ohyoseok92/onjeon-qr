@@ -4,6 +4,7 @@ import sqlite3
 import hmac
 import json
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import closing
 from datetime import datetime, timedelta, timezone
 
 import pytest
@@ -183,8 +184,9 @@ def test_failure_after_replace_before_commit_recovers_without_rollback(layout, c
 def test_checkpoint_tampering_and_deletion_fail_closed(layout):
     install(layout)
     database = layout["custody"] / "checkpoint.sqlite3"
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection:
         connection.execute("UPDATE state SET body=?", (b'{}',))
+        connection.commit()
     with pytest.raises(ValueError, match="authentication"):
         status(layout)
     database.unlink()
@@ -395,7 +397,7 @@ def test_authenticated_v1_history_survives_scope_format_upgrade(layout, ca):
     install(layout)
     database = layout["custody"] / "checkpoint.sqlite3"
     key = (layout["custody"] / "checkpoint-key.bin").read_bytes()
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection:
         state = json.loads(connection.execute("SELECT body FROM state").fetchone()[0])
         state["version"] = 1
         state.pop("approved_distribution_points")
@@ -405,6 +407,7 @@ def test_authenticated_v1_history_survives_scope_format_upgrade(layout, ca):
                 record.pop(name)
         body = operations._encode(state)
         connection.execute("UPDATE state SET body=?,mac=?", (body, hmac.digest(key, operations.DOMAIN + body, "sha256")))
+        connection.commit()
     assert status(layout)["generation"] == 1
     assert replace(layout, crl(ca, 2, serials=(10, 20)))["generation"] == 2
     assert status(layout)["ready"] is True

@@ -42,6 +42,8 @@ for pattern in (
     "submission/CLAUDE_OPUS_REMEDIATION_*.md", "submission/CLAUDE_OPUS_REMEDIATION_*.json",
     "submission/BACKUP_CUSTODY.md", "submission/CRL_OPERATIONS.md", "submission/RELEASE_OPERATIONS.md",
     "submission/PUBLIC_*_CHECK.json", "submission/MYBOX_BACKUP_CHECK.json", "submission/OPERATIONS_COMPLETION_*.md",
+    "submission/OPERATIONS_POST_RELEASE_*.md", "submission/OPEN_SOURCE_CODE_SECURITY_SCAN_*.md",
+    "submission/CLAUDE_OPUS_SECURE_CODING_*.md",
     "submission/BITLOCKER_OPERATION_PLAN.md",
 ):
     FILES.extend(ROOT.glob(pattern))
